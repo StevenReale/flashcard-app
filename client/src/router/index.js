@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Admin from '../views/Admin.vue'
+import AddCard from '../views/AddCard.vue'
 
 Vue.use(VueRouter)
 
@@ -10,6 +11,12 @@ const routes = [
     name: 'Admin',
     component: Admin
   },
+
+  {
+    path: '/create',
+    name: 'Create',
+    component: AddCard
+  }
   // {
   //   path: '/about',
   //   name: 'About',
