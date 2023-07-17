@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div id="admin-view">
     <h2>Deck Management</h2>
-    <button @click.prevent="create">Create New Card</button>
+    <button id="create" @click.prevent="create">Create New Card</button>
     <flashcard-collection />
   </div>
 </template>
@@ -21,4 +21,18 @@ export default {
 </script>
 
 <style>
+#admin-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#create {
+  width: 150px;
+  height: 2em;
+  margin-bottom: 4em;
+  background-color: #F3BD00;
+  
+}
 </style>

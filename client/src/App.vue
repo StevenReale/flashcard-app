@@ -31,7 +31,12 @@ export default {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
+h2 {
+  font-weight: bold;
+  font-size: 1.5em;
+  padding-bottom: 1em;
+  text-align: center;
+}
 
 header {
   display: flex;

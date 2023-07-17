@@ -1,10 +1,12 @@
 <template>
-  <div>
-      <label for="question">Add new question</label>
+  <div id="container">
+  <div id="add-card">
+      <label id="question-label" for="question">Add new question</label>
       <input id ="question" name="question" type="text" v-model="question" />
-      <label for="answer">Add new answer</label>
+      <label id="answer-label" for="answer">Add new answer</label>
       <input id ="answer" name="answer" type="text" v-model="answer" />
-      <button @click="addQuestion">Submit</button>
+      <button id="button" @click="addQuestion">Submit</button>
+  </div>
   </div>
 </template>
 
@@ -37,4 +39,44 @@ export default {
 
 <style>
 
+#container {
+    margin-top: 3em;
+    display: flex;
+    justify-content: center;
+}
+
+#add-card {
+    width: 40vw;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 2.5fr;
+    grid-template-areas: 
+    "question-label question"
+    "answer-label answer"
+    "button button";
+
+}
+
+#question-label {
+    grid-area: question-label;
+}
+
+#question {
+    grid-area: question;
+}
+
+#answer-label {
+    grid-area: answer-label;
+}
+
+#answer {
+    grid-area: answer;
+}
+
+#button {
+    margin-top: 1.5em;
+    grid-area: button;
+    justify-self: center;
+    width: 100px;
+}
 </style>

@@ -14,12 +14,12 @@
       </thead>
       <tbody>
         <tr v-for="card in cards" :key="card.cardId">
-          <td>{{card.cardId}}</td>
-          <td>{{card.bin}}</td>
-          <td>{{card.expiryTime}}</td>
-          <td>{{card.timesWrong}}</td>
-          <td>{{card.question}}</td>
-          <td>{{card.answer}}</td>
+          <td id="card-id">{{card.cardId}}</td>
+          <td id="bin">{{card.bin}}</td>
+          <td id="time-stamp">{{formatTimestamp(card.expiryTime)}}</td>
+          <td id="incorrect">{{card.timesWrong}}</td>
+          <td id="question">{{card.question}}</td>
+          <td id="answer">{{card.answer}}</td>
         </tr>
         </tbody>
     </table>
@@ -41,8 +41,36 @@ export default {
       this.cards = response.data;
     });
   },
+  methods: {
+    formatTimestamp(timeStamp) {
+      return (timeStamp.slice(0,10) + " " + timeStamp.slice(11, 19))
+    }
+  }
 };
 </script>
 
-<style>
+<style scoped>
+
+th {
+  font-weight: bold;
+  padding-right: 1em;
+  text-align: center;
+}
+
+td {
+  padding-right: 1em;
+}
+
+thead {
+  border-bottom: 1px solid black;
+}
+
+tbody td {
+  padding-top: .5em;
+}
+
+#card-id, #bin, #time-stamp, #incorrect {
+  text-align: center;
+}
+
 </style>
