@@ -60,6 +60,10 @@ nav {
  
 }
 
+button {
+  background-color: #F3BD00;
+}
+
 main {
   padding: 160px 20px 40px 20px;
 }

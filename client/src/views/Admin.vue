@@ -22,6 +22,7 @@ export default {
 
 <style>
 #admin-view {
+  margin-top: 1em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +33,6 @@ export default {
   width: 150px;
   height: 2em;
   margin-bottom: 4em;
-  background-color: #F3BD00;
   
 }
 </style>

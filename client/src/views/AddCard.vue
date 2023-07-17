@@ -5,7 +5,10 @@
       <input id ="question" name="question" type="text" v-model="question" />
       <label id="answer-label" for="answer">Add new answer</label>
       <input id ="answer" name="answer" type="text" v-model="answer" />
-      <button id="button" @click="addQuestion">Submit</button>
+      <div id="button-div">
+          <button @click="addQuestion">Submit</button>
+          <button @click="returnToAdmin">Cancel</button>
+          </div>
   </div>
   </div>
 </template>
@@ -23,8 +26,11 @@ export default {
                 answer: this.answer
             }
             cardServ.addCard(card).then( () => {
-                this.$router.push('/');
+                this.returnToAdmin();
             })
+        },
+        returnToAdmin() {
+            this.$router.push('/');
         }
     },
     data() {
@@ -73,10 +79,19 @@ export default {
     grid-area: answer;
 }
 
-#button {
+#button-div {
     margin-top: 1.5em;
     grid-area: button;
     justify-self: center;
     width: 100px;
+    display: flex;
+}
+
+button {
+    display: inline;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-right: .5em;
+    margin-left: .5em;
 }
 </style>

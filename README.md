@@ -13,3 +13,16 @@ Submitted for consideration for employment with Shortform
 | Build full-stack functionality for displaying all cards in admin mode                    |       16        |
 | Styling admin interface |       46        |
 | **Total** (h:mm)                                                                         |    **2:50**     |
+
+## Tasks to do
+
+1. Develop frontend user interface
+2. Build backend infrastructure for study mode
+3. Wire backend and frontend study mode
+4. Styling study mode
+
+## Potential Stretch Goals
+- Implement functionality for additional users
+- Sort admin view by various columns
+- Full admin CRUD capability
+- Automated testing
