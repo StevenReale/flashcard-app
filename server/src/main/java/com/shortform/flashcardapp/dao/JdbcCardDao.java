@@ -62,9 +62,10 @@ public class JdbcCardDao implements CardDao {
         String sql = "SELECT card_id, user_id, bin, expiry_time, question, answer, times_wrong " +
                 "FROM card " +
                 "WHERE user_id = ? " +
-                "ORDER BY expiry_time " +
+                "   AND expiry_time < ? " +
+                "ORDER BY bin DESC, expiry_time ASC " +
                 "LIMIT 1;";
-        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId, Timestamp.valueOf(LocalDateTime.now()));
         if(result.next()) {
             card = mapRowtoCard(result);
         }

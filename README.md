@@ -13,7 +13,8 @@ Submitted for consideration for employment with Shortform
 | Build full-stack functionality for displaying all cards in admin mode                    |       16        |
 | Styling admin interface |       46        |
 | Build simple frontend interface and back-end functionality for displaying either the next card or an informational message. |       50        |
-| **Total** (h:mm)                                                                         |    **3:40**     |
+| Styling the flashcards in study mode |       30        |
+| **Total** (h:mm)                                                                         |    **4:10**     |
 
 ## Tasks to do
 
