@@ -12,7 +12,8 @@ Submitted for consideration for employment with Shortform
 | Wire front-end create card request to backend                                            |       21        |
 | Build full-stack functionality for displaying all cards in admin mode                    |       16        |
 | Styling admin interface |       46        |
-| **Total** (h:mm)                                                                         |    **2:50**     |
+| Build simple frontend interface and back-end functionality for displaying either the next card or an informational message. |       50        |
+| **Total** (h:mm)                                                                         |    **3:40**     |
 
 ## Tasks to do
 
@@ -20,6 +21,7 @@ Submitted for consideration for employment with Shortform
 2. Build backend infrastructure for study mode
 3. Wire backend and frontend study mode
 4. Styling study mode
+5. Host and configure live server
 
 ## Potential Stretch Goals
 - Implement functionality for additional users

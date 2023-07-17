@@ -1,7 +1,8 @@
 <template>
       <nav>
       <ul id="nav-ul">
-      <router-link class="nav-link" to="/">Admin</router-link> |
+      <router-link class="nav-link" to="/">Deck Management</router-link> |
+      <router-link class="nav-link" :to="{name: 'Study'}">Study Mode</router-link>
       </ul>
     </nav>
 </template>
@@ -22,6 +23,8 @@ a{
 .nav-link {
   display: inline-block;
   line-height: 2em;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #nav-ul {

@@ -22,7 +22,6 @@ export default {
 
 <style>
 #admin-view {
-  margin-top: 1em;
   display: flex;
   flex-direction: column;
   align-items: center;

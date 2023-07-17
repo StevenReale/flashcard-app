@@ -4,7 +4,7 @@
     <app-nav />
     
     <main>
-    <router-view/>
+    <router-view id="viewport" />
     </main>
 
     <app-footer />
@@ -58,6 +58,10 @@ nav {
   height: 30px;
   align-items: center;
  
+}
+
+#viewport {
+  margin-top: 1em;
 }
 
 button {

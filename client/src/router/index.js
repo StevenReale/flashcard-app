@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Admin from '../views/Admin.vue'
 import AddCard from '../views/AddCard.vue'
+import Study from '../views/Study.vue'
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,12 @@ const routes = [
     path: '/create',
     name: 'Create',
     component: AddCard
+  },
+
+  {
+    path: '/study',
+    name: 'Study',
+    component: Study
   }
   // {
   //   path: '/about',

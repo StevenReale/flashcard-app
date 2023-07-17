@@ -12,5 +12,13 @@ export default {
 
     getAllCardsByUser() {
         return http.get('/card/1');
+    },
+
+    getNextCard() {
+        return http.get('/card/next/1');
+    },
+
+    checkCardStatus() {
+        return http.get('/card/next/1/checkStatus');
     }
 }

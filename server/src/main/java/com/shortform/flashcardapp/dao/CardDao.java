@@ -10,6 +10,10 @@ public interface CardDao {
 
     public List<Card> getAllCardsByUserId(int userId);
 
+    public int numberOfActiveCardsByUserId(int userId);
+
+    public Card getNextCardForUser(int userId);
+
     public Card createCard(Card card);
 
 }

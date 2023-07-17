@@ -6,6 +6,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,34 @@ public class JdbcCardDao implements CardDao {
             cardList.add(mapRowtoCard(result));
         }
         return cardList;
+    }
+
+    @Override
+    public int numberOfActiveCardsByUserId(int userId) {
+        int activeCards = 0;
+        String sql = "SELECT COUNT(*) " +
+                "FROM card " +
+                "WHERE expiry_time < ?;";
+        activeCards = jdbcTemplate.queryForObject(
+                sql,
+                Integer.class,
+                Timestamp.valueOf(LocalDateTime.now()));
+        return activeCards;
+    }
+
+    @Override
+    public Card getNextCardForUser(int userId) {
+        Card card = new Card();
+        String sql = "SELECT card_id, user_id, bin, expiry_time, question, answer, times_wrong " +
+                "FROM card " +
+                "WHERE user_id = ? " +
+                "ORDER BY expiry_time " +
+                "LIMIT 1;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
+        if(result.next()) {
+            card = mapRowtoCard(result);
+        }
+        return card;
     }
 
     @Override
