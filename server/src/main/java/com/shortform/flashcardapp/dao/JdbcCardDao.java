@@ -6,6 +6,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JdbcCardDao implements CardDao {
@@ -15,16 +17,29 @@ public class JdbcCardDao implements CardDao {
     public JdbcCardDao(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
 
     @Override
-    public Card getCard(int id) {
+    public Card getCard(int cardId) {
         Card card = new Card();
         String sql = "SELECT card_id, user_id, bin, expiry_time, question, answer, times_wrong " +
                 "FROM card " +
                 "WHERE card_id = ?;";
-        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, id);
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, cardId);
         if(result.next()) {
             card = mapRowtoCard(result);
         }
         return card;
+    }
+
+    @Override
+    public List<Card> getAllCardsByUserId(int userId) {
+        List<Card> cardList = new ArrayList<>();
+        String sql = "SELECT card_id, user_id, bin, expiry_time, question, answer, times_wrong " +
+                "FROM card " +
+                "WHERE user_id = ?;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
+        while(result.next()) {
+            cardList.add(mapRowtoCard(result));
+        }
+        return cardList;
     }
 
     @Override

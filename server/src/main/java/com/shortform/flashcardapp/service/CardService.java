@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Component
 public class CardService {
@@ -14,7 +15,9 @@ public class CardService {
 
     public CardService (CardDao cardDao) {this.cardDao=cardDao;}
 
-    public Card getCardById(int id) {return cardDao.getCard(id);}
+    public Card getCardById(int cardId) {return cardDao.getCard(cardId);}
+
+    public List<Card> getAllCardsByUserId(int userId) {return cardDao.getAllCardsByUserId(userId);}
 
     public Card createCard(Card card) {
         card.setUserId(1);

@@ -8,5 +8,9 @@ export default {
 
     addCard(card) {
         return http.post('/card', card);
+    },
+
+    getAllCardsByUser() {
+        return http.get('/card/1');
     }
 }

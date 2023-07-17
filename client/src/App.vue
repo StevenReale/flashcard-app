@@ -1,86 +1,37 @@
 <template>
   <div id="app">
-    <header>
-      <h1>Flashcard App</h1>
-    </header>
-    <nav>
-      <ul id="nav-ul">
-      <router-link class="nav-link" to="/">Admin</router-link> |
-      </ul>
-    </nav>
+    <app-header />
+    <app-nav />
     
     <main>
     <router-view/>
     </main>
 
-    <footer>
-      &copy; 2023 Steven Reale. Designed for Shortform.
-    </footer>
+    <app-footer />
 
   </div>
 </template>
 
+<script>
+import '@/assets/reset.css'
+import AppHeader from './components/page-format/AppHeader.vue'
+import AppNav from './components/page-format/AppNav.vue'
+import AppFooter from './components/page-format/AppFooter.vue'
+
+export default {
+  components: {AppHeader, AppNav, AppFooter},
+  name: 'App'
+}
+</script>
+
+
 <style>
 
-/* Meyerweb CSS RESET BEGINS HERE */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;}
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;}
-body {
-	line-height: 1;}
-ol, ul {
-	list-style: none;}
-blockquote, q {
-	quotes: none;}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;}
-/* Meyerweb CSS RESET ENDS HERE */
 *, body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-a{
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
-}
 
-.nav-link {
-  display: inline-block;
-  line-height: 2em;
-}
-
-#nav-ul {
-  padding-left: 10px;
-}
-
-h1 {
-  font-size: 5em;
-}
 
 header {
   display: flex;
