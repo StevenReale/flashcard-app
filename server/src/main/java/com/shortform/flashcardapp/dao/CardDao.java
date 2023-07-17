@@ -16,4 +16,6 @@ public interface CardDao {
 
     public Card createCard(Card card);
 
+    public boolean updateCard(Card card);
+
 }

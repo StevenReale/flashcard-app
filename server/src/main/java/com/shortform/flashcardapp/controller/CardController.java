@@ -36,5 +36,10 @@ public class CardController {
         return cardService.getNextCardForUser(userId);
     }
 
+    @RequestMapping(path = "{cardId}/correct", method = RequestMethod.PUT)
+    public boolean logCorrect(@PathVariable int cardId) {
+        return cardService.logCorrectCard(cardId);
+    }
+
 
 }

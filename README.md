@@ -14,15 +14,14 @@ Submitted for consideration for employment with Shortform
 | Styling admin interface |       46        |
 | Build simple frontend interface and back-end functionality for displaying either the next card or an informational message. |       50        |
 | Styling the flashcards in study mode |       30        |
-| **Total** (h:mm)                                                                         |    **4:10**     |
+| Build and debug fullstack logic to log a correct card |       80        |
+| **Total** (h:mm)                                                                         |    **5:30**     |
 
 ## Tasks to do
 
-1. Develop frontend user interface
-2. Build backend infrastructure for study mode
-3. Wire backend and frontend study mode
-4. Styling study mode
-5. Host and configure live server
+1. Correct message handling and next card logic
+2. Wire logic to log incorrect answer
+3. Host and configure live server
 
 ## Potential Stretch Goals
 - Implement functionality for additional users

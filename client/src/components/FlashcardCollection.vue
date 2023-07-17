@@ -14,14 +14,14 @@
       </thead>
       <tbody>
         <tr v-for="card in cards" :key="card.cardId">
-          <td id="card-id">{{card.cardId}}</td>
-          <td id="bin">{{card.bin}}</td>
-          <td id="time-stamp">{{formatTimestamp(card.expiryTime)}}</td>
-          <td id="incorrect">{{card.timesWrong}}</td>
-          <td id="question">{{card.question}}</td>
-          <td id="answer">{{card.answer}}</td>
+          <td id="card-id">{{ card.cardId }}</td>
+          <td id="bin">{{ card.bin }}</td>
+          <td id="time-stamp">{{ formatTimestamp(card.expiryTime) }}</td>
+          <td id="incorrect">{{ card.timesWrong }}</td>
+          <td id="question">{{ card.question }}</td>
+          <td id="answer">{{ card.answer }}</td>
         </tr>
-        </tbody>
+      </tbody>
     </table>
   </div>
 </template>
@@ -43,14 +43,17 @@ export default {
   },
   methods: {
     formatTimestamp(timeStamp) {
-      return (timeStamp.slice(0,10) + " " + timeStamp.slice(11, 19))
-    }
-  }
+      if (timeStamp == null) {
+        return "N/A";
+      } else {
+        return timeStamp.slice(0, 10) + " " + timeStamp.slice(11, 19);
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
-
 th {
   font-weight: bold;
   padding-right: 1em;
@@ -66,11 +69,13 @@ thead {
 }
 
 tbody td {
-  padding-top: .5em;
+  padding-top: 0.5em;
 }
 
-#card-id, #bin, #time-stamp, #incorrect {
+#card-id,
+#bin,
+#time-stamp,
+#incorrect {
   text-align: center;
 }
-
 </style>

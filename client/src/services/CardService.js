@@ -20,5 +20,16 @@ export default {
 
     checkCardStatus() {
         return http.get('/card/next/1/checkStatus');
+    },
+
+    log(wasCorrect, cardId) {
+
+        console.log(cardId);
+        if (wasCorrect) {
+            return http.put(`/card/${cardId}/correct`);
+        } else {
+            return http.put('/card/incorrect');
+        }
     }
+
 }
