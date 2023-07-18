@@ -19,8 +19,8 @@ Submitted for consideration for employment with Shortform
 | Debugging                                                                                                   |       64        |
 | Parse time remaining on deck management page |       32        |
 | Divide deck management page into an active and an inactive table |       17        |
-| Configure and launch on live server | 3:21
-| **Total** (h:mm)                                                                                                            |    **7:29**     |
+| Configure and launch on live server |       11        |
+| **Total** (h:mm)                                                                                                            |    **7:40**     |
 
 ## Tasks to do
 
