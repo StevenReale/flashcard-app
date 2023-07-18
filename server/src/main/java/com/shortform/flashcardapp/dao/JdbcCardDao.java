@@ -32,11 +32,30 @@ public class JdbcCardDao implements CardDao {
     }
 
     @Override
-    public List<Card> getAllCardsByUserId(int userId) {
+    public List<Card> getAllActiveCardsByUserId(int userId) {
         List<Card> cardList = new ArrayList<>();
         String sql = "SELECT card_id, user_id, bin, expiry_time, question, answer, times_wrong " +
                 "FROM card " +
-                "WHERE user_id = ?;";
+                "WHERE user_id = ? " +
+                "   AND bin < 11 " +
+                "   AND times_wrong < 10" +
+                "ORDER BY expiry_time;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
+        while(result.next()) {
+            cardList.add(mapRowtoCard(result));
+        }
+        return cardList;
+    }
+
+    @Override
+    public List<Card> getAllInactiveCardsByUserId(int userId) {
+        List<Card> cardList = new ArrayList<>();
+        String sql = "SELECT card_id, user_id, bin, expiry_time, question, answer, times_wrong " +
+                "FROM card " +
+                "WHERE user_id = ? " +
+                "   AND (bin = 11 " +
+                "   OR times_wrong = 10) " +
+                "ORDER BY expiry_time;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
         while(result.next()) {
             cardList.add(mapRowtoCard(result));
@@ -49,19 +68,17 @@ public class JdbcCardDao implements CardDao {
         int activeCards = 0;
         String sql = "SELECT COUNT(*) " +
                 "FROM card " +
-                "WHERE expiry_time < ? " +
-                "   AND bin < ?;";
+                "WHERE bin < ?;";
         activeCards = jdbcTemplate.queryForObject(
                 sql,
                 Integer.class,
-                Timestamp.valueOf(LocalDateTime.now()),
                 LAST_BIN);
         return activeCards;
     }
 
     @Override
     public Card getNextCardForUser(int userId) {
-        Card card = new Card();
+        Card card = null;
         String sql = "SELECT card_id, user_id, bin, expiry_time, question, answer, times_wrong " +
                 "FROM card " +
                 "WHERE user_id = ? " +

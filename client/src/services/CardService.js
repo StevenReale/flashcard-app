@@ -10,8 +10,12 @@ export default {
         return http.post('/card', card);
     },
 
-    getAllCardsByUser() {
-        return http.get('/card/1');
+    getAllActiveCardsByUser() {
+        return http.get('/card/active/1');
+    },
+
+    getAllInactiveCardsByUser() {
+        return http.get('/card/inactive/1');
     },
 
     getNextCard() {
@@ -28,7 +32,7 @@ export default {
         if (wasCorrect) {
             return http.put(`/card/${cardId}/correct`);
         } else {
-            return http.put('/card/incorrect');
+            return http.put(`/card/${cardId}/incorrect`);
         }
     }
 

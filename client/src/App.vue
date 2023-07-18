@@ -62,6 +62,10 @@ nav {
 
 #viewport {
   margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 }
 
 button {

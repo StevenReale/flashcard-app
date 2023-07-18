@@ -8,7 +8,9 @@ public interface CardDao {
 
     public Card getCard(int cardId);
 
-    public List<Card> getAllCardsByUserId(int userId);
+    public List<Card> getAllActiveCardsByUserId(int userId);
+
+    public List<Card> getAllInactiveCardsByUserId(int userId);
 
     public int numberOfActiveCardsByUserId(int userId);
 

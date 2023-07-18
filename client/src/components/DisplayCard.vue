@@ -1,9 +1,11 @@
 <template>
   <div id="card-container">
     <div id="card" @click="isFront = !isFront">
-      <h1 class="side-indicator" v-if="isFront && !displayMessage">Q</h1>
-      <h1 class="side-indicator" v-if="!isFront && !displayMessage">A</h1>
-      <p id="flip-message" v-if="!displayMessage">click card to flip</p>
+      <div id="indicator-message-container">
+        <h1 class="side-indicator" v-if="isFront && !displayMessage">Q</h1>
+        <h1 class="side-indicator" v-if="!isFront && !displayMessage">A</h1>
+        <p id="flip-message" v-if="!displayMessage">click card to flip</p>
+      </div>
       <div id="card-text">
         <div v-if="displayMessage">
           <p>{{ message }}</p>
@@ -18,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div id="button-div" v-if="!displayMessage">
+    <div id="button-div" v-if="!isFront && !displayMessage">
       <button @click.prevent="log(true)">I got it</button>
       <button @click.prevent="log(false)">I did not get it</button>
     </div>
@@ -39,29 +41,34 @@ export default {
     };
   },
   methods: {
-      log(wasCorrect) {
-          console.log(this.card);
-          cardServ.log(wasCorrect, this.card.cardId).then(() => {
-              this.getNextCard();
-          })
-      },
-      getNextCard() {
-          cardServ.getNextCard().then((response) => {
-          this.card = response.data;
-        });
-      }
+    log(wasCorrect) {
+      console.log(this.card);
+      cardServ.log(wasCorrect, this.card.cardId).then(() => {
+        this.checkCardStatus();
+      });
+    },
+    getNextCard() {
+      cardServ.getNextCard().then((response) => {
+        this.card = response.data;
+      });
+    },
+
+    checkCardStatus() {
+      this.isFront = true;  
+      cardServ.checkCardStatus().then((response) => {
+        const status = response.data.status;
+
+        if (status == null) {
+          this.getNextCard();
+        } else {
+          this.displayMessage = true;
+          this.message = status;
+        }
+      });
+    },
   },
   created() {
-    cardServ.checkCardStatus().then((response) => {
-      const status = response.data.status;
-
-      if (status == null) {
-        this.getNextCard();
-      } else {
-        this.displayMessage = true;
-        this.message = status;
-      }
-    });
+    this.checkCardStatus();
   },
 };
 </script>
@@ -74,6 +81,7 @@ export default {
 }
 
 #card {
+  position: relative;
   border: 1px solid black;
   height: 500px;
   width: 350px;
@@ -81,9 +89,12 @@ export default {
 }
 
 #card-text {
+  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 p {
@@ -91,8 +102,12 @@ p {
   text-align: center;
 }
 
+#indicator-message-container {
+  position: absolute;
+}
+
 .side-indicator {
-  position: relative;
+  position: absolute;
   z-index: 1;
   top: 0em;
   left: 0.2em;
@@ -100,23 +115,25 @@ p {
 }
 
 #flip-message {
-  position: relative;
+  position: absolute;
   z-index: 2;
-  bottom: -400px;
+  bottom: -488px;
   font-size: 1em;
   font-style: italic;
+  left: 72px;
+  width: 200px;
 }
 
 #button-div {
-    width: 350px;
-    display: flex;
-    justify-content: space-around;
+  width: 350px;
+  display: flex;
+  justify-content: space-around;
 }
 
 #button-div > button {
-    width: 150px;
-    height: 3em;
-    font-size: 1em;
-    font-weight: bold;
+  width: 150px;
+  height: 3em;
+  font-size: 1em;
+  font-weight: bold;
 }
 </style>

@@ -34,14 +34,18 @@ public class CardService {
         return cardDao.getCard(cardId);
     }
 
-    public List<Card> getAllCardsByUserId(int userId) {
-        return cardDao.getAllCardsByUserId(userId);
+    public List<Card> getAllActiveCardsByUserId(int userId) {
+        return cardDao.getAllActiveCardsByUserId(userId);
+    }
+
+    public List<Card> getAllInactiveCardsByUserId(int userId) {
+        return cardDao.getAllInactiveCardsByUserId(userId);
     }
 
     public Message getStatusMessage(int userId) {
 
         if (cardDao.numberOfActiveCardsByUserId(userId) > 0) {
-            if (getNextCardForUser(userId).equals(null)) {
+            if (getNextCardForUser(userId) == null) {
                 return new Message("You are all done for now.");
             } else {
                 //return new Message("Test message"); //for testing
@@ -105,6 +109,14 @@ public class CardService {
 
         }
 
+        return cardDao.updateCard(card);
+    }
+
+    public boolean logIncorrectCard(int cardId) {
+        Card card = cardDao.getCard(cardId);
+        card.setBin(1);
+        card.setExpiryTime(LocalDateTime.now().plusMinutes(5));
+        card.setTimesWrong(card.getTimesWrong()+1);
         return cardDao.updateCard(card);
     }
 }

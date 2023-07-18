@@ -21,9 +21,14 @@ public class CardController {
         return cardService.createCard(card);
     }
 
-    @RequestMapping(path = "{userId}", method = RequestMethod.GET)
-    public List<Card> getAllCardsByUserId(@PathVariable int userId) {
-        return cardService.getAllCardsByUserId(userId);
+    @RequestMapping(path = "/active/{userId}", method = RequestMethod.GET)
+    public List<Card> getAllActiveCardsByUserId(@PathVariable int userId) {
+        return cardService.getAllActiveCardsByUserId(userId);
+    }
+
+    @RequestMapping(path = "/inactive/{userId}", method = RequestMethod.GET)
+    public List<Card> getAllInactiveCardsByUserId(@PathVariable int userId) {
+        return cardService.getAllInactiveCardsByUserId(userId);
     }
 
     @RequestMapping(path = "next/{userId}/checkStatus", method = RequestMethod.GET)
@@ -39,6 +44,11 @@ public class CardController {
     @RequestMapping(path = "{cardId}/correct", method = RequestMethod.PUT)
     public boolean logCorrect(@PathVariable int cardId) {
         return cardService.logCorrectCard(cardId);
+    }
+
+    @RequestMapping(path = "{cardId}/incorrect", method = RequestMethod.PUT)
+    public boolean logIncorrect(@PathVariable int cardId) {
+        return cardService.logIncorrectCard(cardId);
     }
 
 
