@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const http = axios.create({
-    baseURL: "http://localhost:9000/api"
+    baseURL: "https://tan-squirrel-production.up.railway.app/api"
 })
 
 export default {
