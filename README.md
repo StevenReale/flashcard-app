@@ -26,6 +26,5 @@ Submitted for consideration for employment with Shortform
 
 ## Potential Stretch Goals
 - Implement functionality for additional users and add authentication
-- Develop design responsive for mobile
 - Sort admin view by various columns
 - Automated testing
