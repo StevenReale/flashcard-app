@@ -3,7 +3,7 @@
       <h2>Edit Card</h2>
       <table>
           <tr>
-              <td class="column">Card Id: </td>
+              <td class="column" id="card-id-td" >Card Id: </td>
               <td>{{card.cardId}}</td>
           </tr>
 
@@ -33,7 +33,7 @@
           </tr>
 
       </table>
-      <button @click.prevent="update">Update Card</button>
+      <button id="update" @click.prevent="update">Update Card</button>
   </div>
 </template>
 
@@ -61,12 +61,20 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .column {
     font-weight: bold;
 }
 
 td {
     padding-bottom: 3px;
+}
+
+#update {
+    margin-top: 15px;
+}
+
+#card-id-td {
+    padding-bottom: 6px;
 }
 </style>
