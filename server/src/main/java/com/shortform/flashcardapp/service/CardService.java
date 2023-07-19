@@ -87,8 +87,6 @@ public class CardService {
             case 10:
                 card.setExpiryTime(now.plus(4 * 30, ChronoUnit.DAYS));
                 break;
-            case 11:
-                card.setExpiryTime(null);
 
         }
 

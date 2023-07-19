@@ -119,8 +119,6 @@ public class JdbcCardDao implements CardDao {
         String sql = "UPDATE card SET card_id = ?, user_id = ?, bin = ?, expiry_timestamp_ms_epoch = ?, question = ?, answer = ?, times_wrong = ? " +
                 "WHERE card_id = ?;";
 
-        System.out.println((card.getExpiryTime()).toString());
-
         return jdbcTemplate.update(
                 sql,
                 card.getCardId(),
