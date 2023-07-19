@@ -19,15 +19,12 @@ Submitted for consideration for employment with Shortform
 | Debugging                                                                                                   |       64        |
 | Parse time remaining on deck management page |       32        |
 | Divide deck management page into an active and an inactive table |       17        |
-| Configure and launch on live server |       11        |
-| **Total** (h:mm)                                                                                                            |    **7:40**     |
-
-## Tasks to do
-
-1. Host and configure live server
+| Configure and launch on live server |       18        |
+| **Total** (h:mm)                                                                                                            |    **7:47**     |
 
 ## Potential Stretch Goals
 - Full admin CRUD capability
-- Implement functionality for additional users
+- Implement functionality for additional users and add authentication
+- Develop design responsive for mobile
 - Sort admin view by various columns
 - Automated testing

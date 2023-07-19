@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="active">
+    <div id="active" v-if="cards.length > 0">
       <h2>Active Flashcards</h2>
       <table>
         <thead>
@@ -25,7 +25,8 @@
         </tbody>
       </table>
     </div>
-    <div id="inactive">
+
+    <div id="inactive" v-if="inactiveCards.length > 0">
       <h2>Inactive Flashcards</h2>
             <table>
         <thead>
@@ -48,6 +49,8 @@
         </tbody>
       </table>
     </div>
+
+    <div v-if="cards.length == 0 && inactiveCards.length == 0"><h2> There are currently no cards in your collection.</h2> </div>
   </div>
 </template>
 
