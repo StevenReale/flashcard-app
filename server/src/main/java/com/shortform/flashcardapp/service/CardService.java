@@ -97,7 +97,7 @@ public class CardService {
 
     public boolean logIncorrectCard(Card card) {
         card.setBin(1);
-        card.setExpiryTime(card.getExpiryTime().plus(5, ChronoUnit.MINUTES));
+        card.setExpiryTime(card.getExpiryTime().plusSeconds(5));
         card.setTimesWrong(card.getTimesWrong()+1);
         return cardDao.updateCard(card);
     }
