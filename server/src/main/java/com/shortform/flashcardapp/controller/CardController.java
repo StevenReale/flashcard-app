@@ -18,7 +18,6 @@ public class CardController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Card createCard(@RequestBody Card card) {
-        System.out.println(card.getExpiryTime().toLocalTime());
         return cardService.createCard(card);
     }
 

@@ -8,7 +8,6 @@ const http = axios.create({
 export default {
 
     addCard(card) {
-        console.log(card);
         return http.post('/card', card);
     },
 

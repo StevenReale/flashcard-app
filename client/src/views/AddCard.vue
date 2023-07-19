@@ -22,8 +22,8 @@ export default {
     methods: {
         addQuestion() {
 
-            const utcDate = timeServ.nowUTC();
-
+            const utcDate = timeServ.nowUTC().toISOString();
+            console.log(utcDate);
             const card = {
                 userId: 1,
                 expiryTime:utcDate,

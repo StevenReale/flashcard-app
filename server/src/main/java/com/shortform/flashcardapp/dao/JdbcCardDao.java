@@ -6,8 +6,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class JdbcCardDao implements CardDao {
     @Override
     public Card getCard(int cardId) {
         Card card = new Card();
-        String sql = "SELECT card_id, user_id, bin, expiry_time, question, answer, times_wrong " +
+        String sql = "SELECT card_id, user_id, bin, expiry_timestamp_ms_epoch, question, answer, times_wrong " +
                 "FROM card " +
                 "WHERE card_id = ?;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, cardId);
@@ -35,12 +35,12 @@ public class JdbcCardDao implements CardDao {
     @Override
     public List<Card> getAllActiveCardsByUserId(int userId) {
         List<Card> cardList = new ArrayList<>();
-        String sql = "SELECT card_id, user_id, bin, expiry_time, question, answer, times_wrong " +
+        String sql = "SELECT card_id, user_id, bin, expiry_timestamp_ms_epoch, question, answer, times_wrong " +
                 "FROM card " +
                 "WHERE user_id = ? " +
                 "   AND bin < 11 " +
                 "   AND times_wrong < 10" +
-                "ORDER BY expiry_time;";
+                "ORDER BY expiry_timestamp_ms_epoch;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
         while(result.next()) {
             cardList.add(mapRowtoCard(result));
@@ -51,12 +51,12 @@ public class JdbcCardDao implements CardDao {
     @Override
     public List<Card> getAllInactiveCardsByUserId(int userId) {
         List<Card> cardList = new ArrayList<>();
-        String sql = "SELECT card_id, user_id, bin, expiry_time, question, answer, times_wrong " +
+        String sql = "SELECT card_id, user_id, bin, expiry_timestamp_ms_epoch, question, answer, times_wrong " +
                 "FROM card " +
                 "WHERE user_id = ? " +
                 "   AND (bin = 11 " +
                 "   OR times_wrong = 10) " +
-                "ORDER BY expiry_time;";
+                "ORDER BY expiry_timestamp_ms_epoch;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
         while(result.next()) {
             cardList.add(mapRowtoCard(result));
@@ -80,17 +80,17 @@ public class JdbcCardDao implements CardDao {
     @Override
     public Card getNextCardForUser(int userId) {
         Card card = null;
-        String sql = "SELECT card_id, user_id, bin, expiry_time, question, answer, times_wrong " +
+        String sql = "SELECT card_id, user_id, bin, expiry_timestamp_ms_epoch, question, answer, times_wrong " +
                 "FROM card " +
                 "WHERE user_id = ? " +
-                "   AND expiry_time < ? " +
+                "   AND expiry_timestamp_ms_epoch < ? " +
                 "   AND bin < ? " +
-                "ORDER BY bin DESC, expiry_time ASC " +
+                "ORDER BY bin DESC, expiry_timestamp_ms_epoch ASC " +
                 "LIMIT 1;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(
                 sql,
                 userId,
-                Timestamp.valueOf(LocalDateTime.now()),
+                Instant.now().toEpochMilli(),
                 LAST_BIN);
         if(result.next()) {
             card = mapRowtoCard(result);
@@ -101,13 +101,13 @@ public class JdbcCardDao implements CardDao {
     @Override
     public Card createCard(Card card) {
 
-        String sql = ("INSERT INTO card (user_id, bin, expiry_time, question, answer, times_wrong) " +
+        String sql = ("INSERT INTO card (user_id, bin, expiry_timestamp_ms_epoch, question, answer, times_wrong) " +
                 "VALUES (?, ?, ?, ?, ?, ?) returning card_id;");
 
         int cardId = jdbcTemplate.queryForObject(sql, Integer.class,
                 card.getUserId(),
                 card.getBin(),
-                card.getExpiryTime(),
+                card.getExpiryTime().toEpochMilli(),
                 card.getQuestion(),
                 card.getAnswer(),
                 card.getTimesWrong());
@@ -116,7 +116,7 @@ public class JdbcCardDao implements CardDao {
 
     @Override
     public boolean updateCard(Card card) {
-        String sql = "UPDATE card SET card_id = ?, user_id = ?, bin = ?, expiry_time = ?, question = ?, answer = ?, times_wrong = ? " +
+        String sql = "UPDATE card SET card_id = ?, user_id = ?, bin = ?, expiry_timestamp_ms_epoch = ?, question = ?, answer = ?, times_wrong = ? " +
                 "WHERE card_id = ?;";
 
         System.out.println((card.getExpiryTime()).toString());
@@ -126,7 +126,7 @@ public class JdbcCardDao implements CardDao {
                 card.getCardId(),
                 card.getUserId(),
                 card.getBin(),
-                card.getExpiryTime(),
+                card.getExpiryTime().toEpochMilli(),
                 card.getQuestion(),
                 card.getAnswer(),
                 card.getTimesWrong(),
@@ -140,7 +140,7 @@ public class JdbcCardDao implements CardDao {
         card.setUserId(result.getInt("user_id"));
         card.setBin(result.getInt("bin"));
         try {
-            card.setExpiryTime(result.getTimestamp("expiry_time").toLocalDateTime());
+            card.setExpiryTime(Instant.ofEpochMilli(result.getLong("expiry_timestamp_ms_epoch")));
         } catch (Exception e) {
             System.out.println("No timestamp present");
         }

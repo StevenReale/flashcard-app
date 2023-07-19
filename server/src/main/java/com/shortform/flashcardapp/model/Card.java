@@ -1,13 +1,13 @@
 package com.shortform.flashcardapp.model;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public class Card {
 
     private int cardId;
     private int userId;
     private int bin;
-    private LocalDateTime expiryTime;
+    private Instant expiryTime;
     private String question;
     private String answer;
     private int timesWrong;
@@ -44,11 +44,11 @@ public class Card {
         this.bin = bin;
     }
 
-    public LocalDateTime getExpiryTime() {
+    public Instant getExpiryTime() {
         return expiryTime;
     }
 
-    public void setExpiryTime(LocalDateTime expiryTime) {
+    public void setExpiryTime(Instant expiryTime) {
         this.expiryTime = expiryTime;
     }
 

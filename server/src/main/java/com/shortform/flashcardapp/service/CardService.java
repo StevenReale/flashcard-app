@@ -5,7 +5,8 @@ import com.shortform.flashcardapp.model.Card;
 import com.shortform.flashcardapp.model.Message;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -53,10 +54,7 @@ public class CardService {
     public boolean logCorrectCard(Card card) {
 
         card.setBin(card.getBin() + 1);
-        LocalDateTime now = card.getExpiryTime();
-
-        System.out.println(now.toString());
-        System.out.println(card.getExpiryTime().toString());
+        Instant now = card.getExpiryTime();
 
         switch (card.getBin()) {
             case 1:
@@ -66,28 +64,28 @@ public class CardService {
                 card.setExpiryTime(now.plusSeconds(25));
                 break;
             case 3:
-                card.setExpiryTime(now.plusMinutes(2));
+                card.setExpiryTime(now.plus(2, ChronoUnit.MINUTES));
                 break;
             case 4:
-                card.setExpiryTime(now.plusMinutes(10));
+                card.setExpiryTime(now.plus(10, ChronoUnit.MINUTES));
                 break;
             case 5:
-                card.setExpiryTime(now.plusHours(1));
+                card.setExpiryTime(now.plus(1, ChronoUnit.HOURS));
                 break;
             case 6:
-                card.setExpiryTime(now.plusHours(5));
+                card.setExpiryTime(now.plus(5, ChronoUnit.HOURS));
                 break;
             case 7:
-                card.setExpiryTime(now.plusDays(1));
+                card.setExpiryTime(now.plus(1, ChronoUnit.DAYS));
                 break;
             case 8:
-                card.setExpiryTime(now.plusDays(5));
+                card.setExpiryTime(now.plus(5, ChronoUnit.DAYS));
                 break;
             case 9:
-                card.setExpiryTime(now.plusDays(25));
+                card.setExpiryTime(now.plus(25, ChronoUnit.DAYS));
                 break;
             case 10:
-                card.setExpiryTime(now.plusMonths(4));
+                card.setExpiryTime(now.plus(4, ChronoUnit.MONTHS));
                 break;
             case 11:
                 card.setExpiryTime(null);
@@ -99,7 +97,7 @@ public class CardService {
 
     public boolean logIncorrectCard(Card card) {
         card.setBin(1);
-        card.setExpiryTime(card.getExpiryTime().plusMinutes(5));
+        card.setExpiryTime(card.getExpiryTime().plus(5, ChronoUnit.MINUTES));
         card.setTimesWrong(card.getTimesWrong()+1);
         return cardDao.updateCard(card);
     }
