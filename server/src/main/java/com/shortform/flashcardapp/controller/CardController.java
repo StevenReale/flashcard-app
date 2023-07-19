@@ -41,14 +41,14 @@ public class CardController {
         return cardService.getNextCardForUser(userId);
     }
 
-    @RequestMapping(path = "{cardId}/correct", method = RequestMethod.PUT)
-    public boolean logCorrect(@PathVariable int cardId) {
-        return cardService.logCorrectCard(cardId);
+    @RequestMapping(path = "/correct", method = RequestMethod.PUT)
+    public boolean logCorrect(@RequestBody Card card) {
+        return cardService.logCorrectCard(card);
     }
 
-    @RequestMapping(path = "{cardId}/incorrect", method = RequestMethod.PUT)
-    public boolean logIncorrect(@PathVariable int cardId) {
-        return cardService.logIncorrectCard(cardId);
+    @RequestMapping(path = "/incorrect", method = RequestMethod.PUT)
+    public boolean logIncorrect(@RequestBody Card card) {
+        return cardService.logIncorrectCard(card);
     }
 
 

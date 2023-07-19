@@ -42,8 +42,8 @@ export default {
   },
   methods: {
     log(wasCorrect) {
-      console.log(this.card);
-      cardServ.log(wasCorrect, this.card.cardId).then(() => {
+      this.card.expiryTime = new Date();
+      cardServ.log(wasCorrect, this.card).then(() => {
         this.checkCardStatus();
       });
     },

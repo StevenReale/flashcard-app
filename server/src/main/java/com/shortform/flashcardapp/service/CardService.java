@@ -13,18 +13,6 @@ import java.util.List;
 public class CardService {
 
     private CardDao cardDao;
-    private final int LAST_BIN = 11;
-    private final int LAST_MISTAKE = 10;
-    private final int FIVE_SECONDS = 5;
-    private final int TWENTY_FIVE_SECONDS = 25;
-    private final int TWO_MINUTES = 60 * 2;
-    private final int TEN_MINUTES = 60 * 10;
-    private final int ONE_HOUR = 60 * 60;
-    private final int FIVE_HOURS = ONE_HOUR * 5;
-    private final int ONE_DAY = ONE_HOUR * 24;
-    private final int FIVE_DAYS = ONE_DAY * 5;
-    private final int TWENTY_FIVE_DAYS = ONE_DAY * 25;
-    private final int FOUR_MONTHS = 4;
 
     public CardService(CardDao cardDao) {
         this.cardDao = cardDao;
@@ -60,18 +48,12 @@ public class CardService {
         return cardDao.getNextCardForUser(userId);
     }
 
-    public Card createCard(Card card) {
-        card.setUserId(1);
-        card.setBin(0);
-        card.setExpiryTime(LocalDateTime.now());
-        card.setTimesWrong(0);
-        return cardDao.createCard(card);
-    }
+    public Card createCard(Card card) { return cardDao.createCard(card); }
 
-    public boolean logCorrectCard(int cardId) {
-        Card card = cardDao.getCard(cardId);
+    public boolean logCorrectCard(Card card) {
+
         card.setBin(card.getBin() + 1);
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = card.getExpiryTime();
 
         switch (card.getBin()) {
             case 1:
@@ -112,10 +94,9 @@ public class CardService {
         return cardDao.updateCard(card);
     }
 
-    public boolean logIncorrectCard(int cardId) {
-        Card card = cardDao.getCard(cardId);
+    public boolean logIncorrectCard(Card card) {
         card.setBin(1);
-        card.setExpiryTime(LocalDateTime.now().plusMinutes(5));
+        card.setExpiryTime(card.getExpiryTime().plusMinutes(5));
         card.setTimesWrong(card.getTimesWrong()+1);
         return cardDao.updateCard(card);
     }

@@ -26,13 +26,12 @@ export default {
         return http.get('/card/next/1/checkStatus');
     },
 
-    log(wasCorrect, cardId) {
+    log(wasCorrect, card) {
 
-        console.log(cardId);
         if (wasCorrect) {
-            return http.put(`/card/${cardId}/correct`);
+            return http.put(`/card/correct`, card);
         } else {
-            return http.put(`/card/${cardId}/incorrect`);
+            return http.put(`/card/incorrect`, card);
         }
     }
 

@@ -22,8 +22,11 @@ export default {
         addQuestion() {
             const card = {
                 userId: 1,
+                expiryTime: new Date(),
                 question: this.question,
-                answer: this.answer
+                answer: this.answer,
+                bin: 0,
+                timesWrong: 0
             }
             cardServ.addCard(card).then( () => {
                 this.returnToAdmin();

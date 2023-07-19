@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,10 +103,11 @@ public class JdbcCardDao implements CardDao {
 
         String sql = ("INSERT INTO card (user_id, bin, expiry_time, question, answer, times_wrong) " +
                 "VALUES (?, ?, ?, ?, ?, ?) returning card_id;");
+        System.out.println(Timestamp.valueOf(card.getExpiryTime()));
         int cardId = jdbcTemplate.queryForObject(sql, Integer.class,
                 card.getUserId(),
                 card.getBin(),
-                Timestamp.valueOf(card.getExpiryTime()),
+                Timestamp.from(card.getExpiryTime().atOffset(ZoneOffset.UTC).toInstant()),
                 card.getQuestion(),
                 card.getAnswer(),
                 card.getTimesWrong());

@@ -90,6 +90,8 @@ export default {
       const currentDate = new Date(); // Get the current date/time
       const difference = date.getTime() - currentDate.getTime(); // Calculate the difference in milliseconds
 
+      console.log(currentDate + " " + date + " " + difference);
+
       // Convert the difference to the desired units (e.g., seconds, minutes, hours, etc.)
       const seconds = Math.floor(difference / 1000);
       const minutes = Math.floor(seconds / 60);
