@@ -23,7 +23,7 @@ export default {
         addQuestion() {
 
             const utcDate = timeServ.nowUTC();
-            console.log(utcDate);
+
             const card = {
                 userId: 1,
                 expiryTime:utcDate,
@@ -32,7 +32,6 @@ export default {
                 bin: 0,
                 timesWrong: 0
             }
-            console.log(card.expiryTime);
 
             cardServ.addCard(card).then( () => {
                 this.returnToAdmin();
