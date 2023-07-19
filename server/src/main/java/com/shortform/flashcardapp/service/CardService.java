@@ -51,6 +51,10 @@ public class CardService {
 
     public Card createCard(Card card) { return cardDao.createCard(card); }
 
+    public boolean deleteCardById(int id) {return cardDao.deleteCardById(id); }
+
+    public boolean updateCard(Card card) {return cardDao.updateCard(card); }
+
     public boolean logCorrectCard(Card card) {
 
         card.setBin(card.getBin() + 1);

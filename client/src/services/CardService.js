@@ -11,6 +11,18 @@ export default {
         return http.post('/card', card);
     },
 
+    deleteCard(card) {
+        return http.delete(`/card/${card.cardId}`);
+    },
+
+    updateCard(card) {
+        return http.put('/card', card);
+    },
+
+    getCardById(cardId) {
+        return http.get(`card/${cardId}`);
+    },
+
     getAllActiveCardsByUser() {
         return http.get('/card/active/1');
     },

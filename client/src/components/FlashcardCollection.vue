@@ -5,21 +5,39 @@
       <table>
         <thead>
           <tr>
-            <th>Card Id</th>
-            <th>Bin</th>
+            <th></th>
+            <th></th>
+            <th class="hide-mobile">Card Id</th>
+            <th class="hide-mobile">Bin</th>
             <th>Times incorrect</th>
             <th>Question</th>
-            <th>Answer</th>
+            <th class="hide-mobile">Answer</th>
             <th>Becomes active</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="card in cards" :key="card.cardId">
-            <td id="card-id">{{ card.cardId }}</td>
-            <td id="bin">{{ card.bin }}</td>
+            <td>
+              <font-awesome-icon
+                v-on:click="
+                  editCard(card)"
+                icon="fa-solid fa-edit icon action"
+                title="Edit card"
+              ></font-awesome-icon>
+            </td>
+                        <td>
+              <font-awesome-icon
+                v-on:click="
+                  deleteCard(card)"
+                icon="fa-solid fa-trash-can icon action"
+                title="Edit card"
+              ></font-awesome-icon>
+            </td>
+            <td class="hide-mobile" id="card-id">{{ card.cardId }}</td>
+            <td class="hide-mobile" id="bin">{{ card.bin }}</td>
             <td id="incorrect">{{ card.timesWrong }}</td>
             <td id="question">{{ card.question }}</td>
-            <td id="answer">{{ card.answer }}</td>
+            <td class="hide-mobile" id="answer">{{ card.answer }}</td>
             <td id="time-stamp">{{ formatTimestamp(card.expiryTime) }}</td>
           </tr>
         </tbody>
@@ -28,29 +46,49 @@
 
     <div id="inactive" v-if="inactiveCards.length > 0">
       <h2>Inactive Flashcards</h2>
-            <table>
+      <table>
         <thead>
           <tr>
-            <th>Card Id</th>
-            <th>Bin</th>
+            <th></th>
+            <th></th>
+            <th class="hide-mobile">Card Id</th>
+            <th class="hide-mobile" >Bin</th>
             <th>Times incorrect</th>
             <th>Question</th>
-            <th>Answer</th>
+            <th class="hide-mobile">Answer</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="card in inactiveCards" :key="card.cardId">
-            <td id="card-id">{{ card.cardId }}</td>
-            <td id="bin">{{ card.bin }}</td>
+                        <td>
+              <font-awesome-icon
+                v-on:click="
+                  editCard(card)" 
+                icon="fa-solid fa-edit icon action"
+                title="Edit card"
+              ></font-awesome-icon>
+            </td>
+                        <td>
+              <font-awesome-icon
+                v-on:click="
+                  deleteCard(card)"
+                icon="fa-solid fa-trash-can icon action"
+                title="Edit card"
+              ></font-awesome-icon>
+            </td>
+            <td class="hide-mobile" id="card-id">{{ card.cardId }}</td>
+            <td class="hide-mobile" id="bin">{{ card.bin }}</td>
             <td id="incorrect">{{ card.timesWrong }}</td>
             <td id="question">{{ card.question }}</td>
-            <td id="answer">{{ card.answer }}</td>
+            <td class="hide-mobile" id="answer">{{ card.answer }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div v-if="cards.length == 0 && inactiveCards.length == 0"><h2> There are currently no cards in your collection.</h2> </div>
+    <div v-if="cards.length == 0 && inactiveCards.length == 0">
+      <h2>There are currently no cards in your collection.</h2>
+    </div>
   </div>
 </template>
 
@@ -63,21 +101,33 @@ export default {
   data() {
     return {
       cards: [],
-      inactiveCards: []
+      inactiveCards: [],
     };
   },
   created() {
-    cardServ.getAllActiveCardsByUser().then((response) => {
+
+    this.populatePage();
+
+  },
+  methods: {
+    editCard(card) {
+      this.$router.push( {name: 'Edit', params: {cardId: card.cardId}})
+    },
+    deleteCard(card) {
+      cardServ.deleteCard(card).then(() => {
+        this.populatePage();
+      });
+    },
+    populatePage() {
+          cardServ.getAllActiveCardsByUser().then((response) => {
       this.cards = response.data;
     });
 
     cardServ.getAllInactiveCardsByUser().then((response) => {
       this.inactiveCards = response.data;
     });
-  },
-  methods: {
+    },
     formatTimestamp(timeStamp) {
-
       if (timeStamp == null) {
         return "N/A";
       } else {
@@ -109,7 +159,6 @@ export default {
     },
 
     remainingTime(time) {
-      
       if (time.days > 0) {
         return time.days + " days";
       } else if (time.hours > 0) {
@@ -154,5 +203,11 @@ tbody td {
 
 #inactive {
   margin-top: 2em;
+}
+
+@media (max-width: 576px) {
+  .hide-mobile {
+    display: none;
+  }
 }
 </style>

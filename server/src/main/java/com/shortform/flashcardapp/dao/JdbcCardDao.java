@@ -131,6 +131,12 @@ public class JdbcCardDao implements CardDao {
                 card.getCardId()) > 0;
     }
 
+    @Override
+    public boolean deleteCardById(int id) {
+        String sql = "DELETE FROM card WHERE card_id = ?;";
+        return jdbcTemplate.update(sql, id) > 0;
+    }
+
     private Card mapRowtoCard(SqlRowSet result) {
         Card card = new Card();
 

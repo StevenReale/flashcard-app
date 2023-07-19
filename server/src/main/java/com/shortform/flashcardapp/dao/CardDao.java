@@ -20,4 +20,6 @@ public interface CardDao {
 
     public boolean updateCard(Card card);
 
+    public boolean deleteCardById(int id);
+
 }

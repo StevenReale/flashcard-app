@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Admin from '../views/Admin.vue'
 import AddCard from '../views/AddCard.vue'
 import Study from '../views/Study.vue'
+import EditCard from '../views/EditCard.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,12 @@ const routes = [
     path: '/study',
     name: 'Study',
     component: Study
+  },
+
+  {
+    path: '/edit/:cardId',
+    name: 'Edit',
+    component: EditCard
   }
   // {
   //   path: '/about',

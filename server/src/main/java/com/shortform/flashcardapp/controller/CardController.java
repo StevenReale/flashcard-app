@@ -21,6 +21,21 @@ public class CardController {
         return cardService.createCard(card);
     }
 
+    @RequestMapping(path = "/{cardId}", method = RequestMethod.DELETE)
+    public boolean deleteCard(@PathVariable int cardId) {
+        return cardService.deleteCardById(cardId);
+    }
+
+    @RequestMapping(path = "/{cardId}", method = RequestMethod.GET)
+    public Card getCardById(@PathVariable int cardId) {
+        return cardService.getCardById(cardId);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public boolean updateCard(@RequestBody Card card) {
+        return cardService.updateCard(card);
+    }
+
     @RequestMapping(path = "/active/{userId}", method = RequestMethod.GET)
     public List<Card> getAllActiveCardsByUserId(@PathVariable int userId) {
         return cardService.getAllActiveCardsByUserId(userId);

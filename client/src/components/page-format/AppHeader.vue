@@ -17,4 +17,10 @@ h1 {
   font-weight: bold;
 }
 
+@media (max-width: 576px) {
+  h1 {
+    font-size: 3em;
+  }
+}
+
 </style>
