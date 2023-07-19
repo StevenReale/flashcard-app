@@ -103,11 +103,11 @@ public class JdbcCardDao implements CardDao {
 
         String sql = ("INSERT INTO card (user_id, bin, expiry_time, question, answer, times_wrong) " +
                 "VALUES (?, ?, ?, ?, ?, ?) returning card_id;");
-        System.out.println(Timestamp.valueOf(card.getExpiryTime()));
+
         int cardId = jdbcTemplate.queryForObject(sql, Integer.class,
                 card.getUserId(),
                 card.getBin(),
-                Timestamp.from(card.getExpiryTime().atOffset(ZoneOffset.UTC).toInstant()),
+                card.getExpiryTime(),
                 card.getQuestion(),
                 card.getAnswer(),
                 card.getTimesWrong());
@@ -118,6 +118,8 @@ public class JdbcCardDao implements CardDao {
     public boolean updateCard(Card card) {
         String sql = "UPDATE card SET card_id = ?, user_id = ?, bin = ?, expiry_time = ?, question = ?, answer = ?, times_wrong = ? " +
                 "WHERE card_id = ?;";
+
+        System.out.println((card.getExpiryTime()).toString());
 
         return jdbcTemplate.update(
                 sql,

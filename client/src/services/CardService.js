@@ -1,12 +1,14 @@
 import axios from "axios"
 
 const http = axios.create({
-    baseURL: "https://tan-squirrel-production.up.railway.app/api"
+    //baseURL: "https://tan-squirrel-production.up.railway.app/api"
+    baseURL: "http://localhost:9000/api"
 })
 
 export default {
 
     addCard(card) {
+        console.log(card);
         return http.post('/card', card);
     },
 

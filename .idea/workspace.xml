@@ -80,8 +80,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/server/src/main/java/com/shortform/flashcardapp/controller/CardController.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="4" />
+          <line>20</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

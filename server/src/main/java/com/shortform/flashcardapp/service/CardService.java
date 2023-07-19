@@ -55,6 +55,9 @@ public class CardService {
         card.setBin(card.getBin() + 1);
         LocalDateTime now = card.getExpiryTime();
 
+        System.out.println(now.toString());
+        System.out.println(card.getExpiryTime().toString());
+
         switch (card.getBin()) {
             case 1:
                 card.setExpiryTime(now.plusSeconds(5));
