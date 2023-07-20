@@ -114,9 +114,7 @@ export default {
       this.$router.push( {name: 'Edit', params: {cardId: card.cardId}})
     },
     deleteCard(card) {
-      cardServ.deleteCard(card).then(() => {
-        this.populatePage();
-      });
+      this.$router.push( {name: 'Delete', params: {cardId: card.cardId}})
     },
     populatePage() {
           cardServ.getAllActiveCardsByUser().then((response) => {

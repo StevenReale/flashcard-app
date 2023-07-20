@@ -21,8 +21,9 @@ Submitted for consideration for employment with Shortform
 | Divide deck management page into an active and an inactive table                                                            |       17        |
 | Configure and launch on live server                                                                                         |       18        |
 | Add full CRUD capabilities to admin page                                                                                    |       54        |
-| Develop mobile view |       13        |
-| **Total** (h:mm)                                                                                                            |    **9:04**     |
+| Develop mobile view                                                                                                         |       13        |
+| UI improvements and code cleanup                                                                                            |       28        |
+| **Total** (h:mm)                                                                                                            |    **9:32**     |
 
 ## Potential Stretch Goals
 - Implement functionality for additional users and add authentication

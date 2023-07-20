@@ -1,6 +1,6 @@
 <template>
   <div id="admin-view">
-    <h2>Deck Management</h2>
+    <h2 class="hide-mobile">Deck Management</h2>
     <button id="create" @click.prevent="create">Create New Card</button>
     <flashcard-collection />
   </div>
@@ -33,5 +33,16 @@ export default {
   height: 2em;
   margin-bottom: 4em;
   
+}
+
+@media (max-width: 576px) {
+  .hide-mobile {
+    display: none;
+  }
+
+  #create {
+    margin-top: 1em;
+    margin-bottom: 2em;
+  }
 }
 </style>

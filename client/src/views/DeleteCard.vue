@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h2>Edit Card</h2>
+      <h2>Delete Card</h2>
       <table>
           <tr>
               <td class="column" id="card-id-td" >Card Id: </td>
@@ -9,32 +9,32 @@
 
           <tr>
               <td class="column">Bin: </td>
-              <td><input type="text" v-model="card.bin" /></td>
+              <td>{{card.bin}}</td>
           </tr>
 
           <tr>
               <td class="column">Times incorrect: </td>
-              <td><input type="text" v-model="card.timesWrong" /></td>
+              <td>{{card.timesWrong}}</td>
           </tr>
 
           <tr>
               <td class="column">Question: </td>
-              <td><input type="text" v-model="card.question" /></td>
+              <td>{{card.question}}</td>
           </tr>
 
           <tr>
               <td class="column">Answer: </td>
-              <td><input type="text" v-model="card.answer" /></td>
+              <td>{{card.answer}}</td>
           </tr>
 
           <tr>
               <td class="column">Becomes active: </td>
-              <td><input type="text" v-model="card.expiryTime" /></td>
+              <td>{{card.expiryTime}}</td>
           </tr>
 
       </table>
-      <div id="button-div">
-      <button id="update" @click.prevent="update">Update Card</button>
+      <div id = "button-div">
+      <button id="delete" @click.prevent="deleteCard">Delete Card</button>
       <button id="cancel" @click.prevent="cancel">Cancel</button>
       </div>
   </div>
@@ -44,7 +44,7 @@
 import cardServ from '../services/CardService';
 
 export default {
-    name: 'edit-card',
+    name: 'delete-card',
     data () {
         return {
             card: {}
@@ -56,14 +56,16 @@ export default {
         });
     },
     methods: {
-        update() {
-            cardServ.updateCard(this.card).then(()=> this.goHome());
+        deleteCard() {
+            cardServ.deleteCard(this.card).then(()=> this.goHome());
         },
-        goHome() {
-            this.$router.push({name: 'Admin'});
-        },
+
         cancel() {
             this.goHome();
+        },
+
+        goHome() {
+            this.$router.push({name: 'Admin'})
         }
     }
 }
@@ -75,21 +77,16 @@ export default {
 }
 
 td {
-    padding-bottom: 3px;
+    padding-bottom: 4px;
 }
 
-#update, #cancel {
+#update {
     margin-top: 15px;
-    display: inline-block;
-}
-
-#card-id-td {
-    padding-bottom: 6px;
 }
 
 #button-div {
     display: flex;
-    height: 3em;
+    height: 2em;
     justify-content: space-evenly;
     width: 300px;
 }

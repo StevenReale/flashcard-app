@@ -1,50 +1,46 @@
 import axios from "axios"
 
-const http = axios.create({
-    baseURL: "https://tan-squirrel-production.up.railway.app/api"
-    //baseURL: "http://localhost:9000/api"
-})
 
 export default {
 
     addCard(card) {
-        return http.post('/card', card);
+        return axios.post('/card', card);
     },
 
     deleteCard(card) {
-        return http.delete(`/card/${card.cardId}`);
+        return axios.delete(`/card/${card.cardId}`);
     },
 
     updateCard(card) {
-        return http.put('/card', card);
+        return axios.put('/card', card);
     },
 
     getCardById(cardId) {
-        return http.get(`card/${cardId}`);
+        return axios.get(`card/${cardId}`);
     },
 
     getAllActiveCardsByUser() {
-        return http.get('/card/active/1');
+        return axios.get('/card/active/1');
     },
 
     getAllInactiveCardsByUser() {
-        return http.get('/card/inactive/1');
+        return axios.get('/card/inactive/1');
     },
 
     getNextCard() {
-        return http.get('/card/next/1');
+        return axios.get('/card/next/1');
     },
 
     checkCardStatus() {
-        return http.get('/card/next/1/checkStatus');
+        return axios.get('/card/next/1/checkStatus');
     },
 
     log(wasCorrect, card) {
 
         if (wasCorrect) {
-            return http.put(`/card/correct`, card);
+            return axios.put(`/card/correct`, card);
         } else {
-            return http.put(`/card/incorrect`, card);
+            return axios.put(`/card/incorrect`, card);
         }
     }
 

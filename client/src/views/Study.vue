@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h2>Study Mode</h2>
+      <h2 class="hide-mobile">Study Mode</h2>
       <display-card />
   </div>
 </template>
@@ -15,5 +15,9 @@ export default {
 </script>
 
 <style>
-
+@media (max-width: 576px) {
+  .hide-mobile {
+    display: none;
+  }
+}
 </style>
