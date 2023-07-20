@@ -25,7 +25,7 @@ Submitted for consideration for employment with Shortform
 | UI improvements and code cleanup                                                                                            |       28        |
 | **Total** (h:mm)                                                                                                            |    **9:32**     |
 
-## Potential Stretch Goals
-- Implement functionality for additional users and add authentication
+## Next steps
+- Implement functionality for additional users and add authentication using Spring Security
 - Sort admin view by various columns
-- Automated testing
+- Automated testing (JUnit and Mockito)
