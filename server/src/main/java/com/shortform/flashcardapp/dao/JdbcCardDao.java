@@ -16,6 +16,7 @@ public class JdbcCardDao implements CardDao {
 
     private final JdbcTemplate jdbcTemplate;
     private final int LAST_BIN = 11;
+    private final int MAX_TIMES_WRONG = 10;
 
     public JdbcCardDao(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
 
@@ -85,13 +86,15 @@ public class JdbcCardDao implements CardDao {
                 "WHERE user_id = ? " +
                 "   AND expiry_timestamp_ms_epoch < ? " +
                 "   AND bin < ? " +
+                "   AND times_wrong < ?" +
                 "ORDER BY bin DESC, expiry_timestamp_ms_epoch ASC " +
                 "LIMIT 1;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(
                 sql,
                 userId,
                 Instant.now().toEpochMilli(),
-                LAST_BIN);
+                LAST_BIN,
+                MAX_TIMES_WRONG);
         if(result.next()) {
             card = mapRowtoCard(result);
         }
