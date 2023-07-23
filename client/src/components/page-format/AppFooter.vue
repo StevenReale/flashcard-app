@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style>
-
+footer {
+    z-index: 10;
+}
 </style>

@@ -14,6 +14,11 @@ export default {
 </script>
 
 <style>
+
+nav {
+  z-index: 10;
+}
+
 a{
   color: black;
   font-weight: bold;

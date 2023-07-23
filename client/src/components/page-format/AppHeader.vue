@@ -12,6 +12,10 @@ export default {
 
 <style scoped>
 
+header {
+  z-index: 10;
+}
+
 h1 {
   font-size: 5em;
   font-weight: bold;
