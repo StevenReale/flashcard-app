@@ -30,7 +30,7 @@
                 v-on:click="
                   deleteCard(card)"
                 icon="fa-solid fa-trash-can icon action"
-                title="Edit card"
+                title="Delete card"
               ></font-awesome-icon>
             </td>
             <td class="hide-mobile" id="card-id">{{ card.cardId }}</td>
@@ -65,7 +65,7 @@
                 v-on:click="
                   editCard(card)" 
                 icon="fa-solid fa-edit icon action"
-                title="Edit card"
+                title="Delete card"
               ></font-awesome-icon>
             </td>
                         <td>
