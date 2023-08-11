@@ -1,6 +1,6 @@
 <template>
       <footer>
-      &copy; 2023 Steven Reale. Designed for Shortform.
+      &copy; 2023 Steven Reale
     </footer>
 </template>
 
