@@ -102,10 +102,11 @@ export default {
     return {
       cards: [],
       inactiveCards: [],
+      login: false
     };
   },
   created() {
-
+   
     this.populatePage();
 
   },
@@ -117,14 +118,26 @@ export default {
       this.$router.push( {name: 'Delete', params: {cardId: card.cardId}})
     },
     populatePage() {
-          cardServ.getAllActiveCardsByUser().then((response) => {
-      this.cards = response.data;
-    });
-
-    cardServ.getAllInactiveCardsByUser().then((response) => {
-      this.inactiveCards = response.data;
-    });
+      
+      if(this.login) {
+        cardServ.getAllActiveCardsByUser().then((response) => {  
+          this.cards = response.data;
+          
+        });
+        cardServ.getAllInactiveCardsByUser().then((response) => {
+        this.inactiveCards = response.data;
+        
+        });
+      } else {
+        console.log("hi");
+      this.cards = this.$store.state.cards;
+      this.inactiveCards = this.$store.state.inactiveCards;
+      console.log(this.$store.state.inactiveCards);
+      console.log(this.inactiveCards);
+      }
+      
     },
+
     formatTimestamp(timeStamp) {
       if (timeStamp == null) {
         return "N/A";
