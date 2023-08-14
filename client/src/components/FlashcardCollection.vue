@@ -115,7 +115,7 @@ export default {
       this.$router.push( {name: 'Edit', params: {cardId: card.cardId}})
     },
     deleteCard(card) {
-      this.$router.push( {name: 'Delete', params: {cardId: card.cardId}})
+      this.$router.push( {name: 'Delete', params: {card: card}})
     },
     populatePage() {
       

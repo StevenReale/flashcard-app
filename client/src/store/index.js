@@ -11,7 +11,7 @@ export default new Vuex.Store({
           "userId": 1,
           "bin": 4,
           "expiryTime": "2023-08-14T07:49:30.664Z",
-          "question": "In C#, which attribute indicates that a particular class is used for unit testing?",
+          "question": "THIS IS FROM DATASTOREIn C#, which attribute indicates that a particular class is used for unit testing?",
           "answer": "[TestClass]",
           "timesWrong": 0
       },
@@ -112,6 +112,10 @@ export default new Vuex.Store({
   ]
   },
   mutations: {
+    DELETE_CARD(state, cardId) {
+      state.cards = state.cards.filter(element => element.cardId != cardId);
+      state.inactiveCards = state.inactiveCards.filter(element => element.cardId != cardId);
+    }
   },
   actions: {
   },

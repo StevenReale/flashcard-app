@@ -41,23 +41,27 @@
 </template>
 
 <script>
-import cardServ from '../services/CardService';
 
 export default {
     name: 'delete-card',
     data () {
         return {
-            card: {}
+            card: {},
+            login: false
         }
     },
     created() {
-        cardServ.getCardById(this.$route.params.cardId).then(response => {
-            this.card = response.data;
-        });
+        this.card = this.$route.params.card;
     },
     methods: {
         deleteCard() {
-            cardServ.deleteCard(this.card).then(()=> this.goHome());
+            if(this.login) {
+            //cardServ.deleteCard(this.card).then(()=> this.goHome());
+            console.log("That should NOT have happened!");
+            } else {
+                this.$store.commit('DELETE_CARD', this.card.cardId);
+                this.goHome();
+            }
         },
 
         cancel() {
