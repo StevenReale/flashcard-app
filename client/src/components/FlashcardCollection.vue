@@ -112,7 +112,7 @@ export default {
   },
   methods: {
     editCard(card) {
-      this.$router.push( {name: 'Edit', params: {cardId: card.cardId}})
+      this.$router.push( {name: 'Edit', params: {card: card}})
     },
     deleteCard(card) {
       this.$router.push( {name: 'Delete', params: {card: card}})
@@ -129,7 +129,6 @@ export default {
         
         });
       } else {
-        console.log("hi");
       this.cards = this.$store.state.cards
         .filter(element => element.bin < 11 && element.timesWrong < 10);
       this.inactiveCards = this.$store.state.cards
@@ -153,7 +152,6 @@ export default {
 
       const difference = new Date(date) - new Date(utcDate); // Calculate the difference in millisecond
 
-      console.log(difference);
       // Convert the difference to the desired units (e.g., seconds, minutes, hours, etc.)
       const seconds = Math.floor(difference / 1000);
       const minutes = Math.floor(seconds / 60);

@@ -111,6 +111,21 @@ export default new Vuex.Store({
   mutations: {
     DELETE_CARD(state, cardId) {
       state.cards = state.cards.filter(element => element.cardId != cardId);
+    },
+    ADD_CARD(state, card) {
+      card.cardId = 1 + state.cards.reduce((max, current) => {
+        return current.cardId > max ? current.cardId : max;
+      }, state.cards[0].cardId);
+
+      state.cards.push(card);
+    },
+    EDIT_CARD(state, card) {
+      state.cards.forEach(element => {
+        if (element.cardId==card.cardId) {
+          element = card;
+          return;
+        }
+      });
     }
   },
   actions: {
