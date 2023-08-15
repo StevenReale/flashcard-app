@@ -38,19 +38,38 @@ export default {
       message: "",
       displayMessage: false,
       isFront: true,
+      login: false
     };
   },
   methods: {
     log(wasCorrect) {
       this.card.expiryTime = new Date();
+      if (this.login) {
       cardServ.log(wasCorrect, this.card).then(() => {
         this.checkCardStatus();
       });
+    } else {
+      if (wasCorrect) {
+            //do stuff
+        } else {
+            this.card.bin = 1;
+            this.card.timesWrong++;
+            this.$store.commit("EDIT_CARD", this.card);
+        }
+        this.isFront = true;
+        this.getNextCard();
+    }
     },
     getNextCard() {
-      cardServ.getNextCard().then((response) => {
-        this.card = response.data;
-      });
+      if(this.login) {
+        console.log("THIS SHOULD NOT HAPPEN");
+        cardServ.getNextCard().then((response) => {
+          this.card = response.data;
+        });
+      } else {
+        this.card = cardServ.getSortedActiveCards(this.$store.state.cards)[0];
+      }
+
     },
 
     checkCardStatus() {
@@ -68,7 +87,8 @@ export default {
     },
   },
   created() {
-    this.checkCardStatus();
+    //this.checkCardStatus();
+    this.getNextCard();
   },
 };
 </script>

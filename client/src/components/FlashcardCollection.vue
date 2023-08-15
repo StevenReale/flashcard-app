@@ -129,21 +129,7 @@ export default {
         
         });
       } else {
-      this.cards = this.$store.state.cards
-        .filter(element => element.bin < 11 && element.timesWrong < 10)
-        .sort((a,b) => {
-          if (
-            (
-              new Date(a.expiryTime) - new Date(timeServ.nowUTC().toISOString()) > 0 || 
-              new Date(b.expiryTime) - new Date(timeServ.nowUTC().toISOString()) > 0
-            ) &&
-            ( a != b )
-          ) {
-            return new Date (a.expiryTime) - new Date(b.expiryTime);
-          } else {
-            return b.bin - a.bin;
-          }
-        });
+      this.cards = cardServ.getSortedActiveCards(this.$store.state.cards); 
       
       this.inactiveCards = this.$store.state.cards
         .filter(element => element.bin >= 11 || element.timesWrong >= 10);
