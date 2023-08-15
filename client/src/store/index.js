@@ -77,10 +77,7 @@ export default new Vuex.Store({
           "question": "In the declaration List<Integer> myList = new ArrayList<>(), _____ is a class that implements the interface _____.",
           "answer": "ArrayList ... List",
           "timesWrong": 0
-      }
-  ],
-  inactiveCards: 
-    [
+      },
       {
           "cardId": 10,
           "userId": 1,
@@ -114,7 +111,6 @@ export default new Vuex.Store({
   mutations: {
     DELETE_CARD(state, cardId) {
       state.cards = state.cards.filter(element => element.cardId != cardId);
-      state.inactiveCards = state.inactiveCards.filter(element => element.cardId != cardId);
     }
   },
   actions: {

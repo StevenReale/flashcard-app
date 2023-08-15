@@ -130,10 +130,11 @@ export default {
         });
       } else {
         console.log("hi");
-      this.cards = this.$store.state.cards;
-      this.inactiveCards = this.$store.state.inactiveCards;
-      console.log(this.$store.state.inactiveCards);
-      console.log(this.inactiveCards);
+      this.cards = this.$store.state.cards
+        .filter(element => element.bin < 11 && element.timesWrong < 10);
+      this.inactiveCards = this.$store.state.cards
+        .filter(element => element.bin >= 11 || element.timesWrong >= 10);
+      
       }
       
     },
