@@ -92,8 +92,7 @@ export default {
             
         }
         this.$store.commit("EDIT_CARD", this.card);
-        this.isFront = true;
-        this.getNextCard();
+        this.checkCardStatus();
     }
     },
     getNextCard() {
@@ -109,7 +108,8 @@ export default {
     },
 
     checkCardStatus() {
-      this.isFront = true;  
+      this.isFront = true;
+      if(this.online) {
       cardServ.checkCardStatus().then((response) => {
         const status = response.data.status;
 
@@ -120,11 +120,21 @@ export default {
           this.message = status;
         }
       });
+    } else {
+      if(cardServ.getSortedActiveCards(this.$store.state.cards).length == 0) {
+        this.displayMessage = true;
+        this.message = "You are permanently done.";
+      } else if (cardServ.getSortedActiveCards(this.$store.state.cards)[0].expiryTime > new Date()) {
+        this.displayMessage = true;
+        this.message = "You are all done for now";
+      } else {
+        this.getNextCard();
+      }
+    }
     },
   },
   created() {
-    //this.checkCardStatus();
-    this.getNextCard();
+    this.checkCardStatus();
   },
 };
 </script>
