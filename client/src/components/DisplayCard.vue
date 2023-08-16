@@ -50,12 +50,48 @@ export default {
       });
     } else {
       if (wasCorrect) {
-            //do stuff
+            this.card.bin++;
+            switch(this.card.bin) {
+              case(1): //add 5 seconds
+                this.card.expiryTime.setSeconds(this.card.expiryTime.getSeconds() + 5);
+                break;
+              case(2): //add 25 seconds
+                this.card.expiryTime.setSeconds(this.card.expiryTime.getSeconds() + 25);
+                break;
+              case(3): //add 2 minutes
+                this.card.expiryTime.setMinutes(this.card.expiryTime.getMinutes() + 2);
+                break;
+              case(4): //add 10 minutes
+                this.card.expiryTime.setMinutes(this.card.expiryTime.getMinutes() + 10);
+                break;
+              case(5): //add 1 hour
+                this.card.expiryTime.setHours(this.card.expiryTime.getHours() + 1);
+                break;
+              case(6): //add 5 hours
+                this.card.expiryTime.setHours(this.card.expiryTime.getHours() + 5);
+                break;
+              case(7): //add 1 day
+                this.card.expiryTime.setDate(this.card.expiryTime.getDate() + 1);
+                break;
+              case(8): //add 5 days
+                this.card.expiryTime.setDate(this.card.expiryTime.getDate() + 5);
+                break;
+              case(9): //add 25 days
+                this.card.expiryTime.setDate(this.card.expiryTime.getDate() + 25);
+                break;
+              case(10): // add 4 months
+                this.card.expiryTime.setDate(this.card.expiryTime.getDate() + + 4*30);
+                break;
+              default:
+                this.card.expiryTime = null;
+                break;
+            }
         } else {
             this.card.bin = 1;
             this.card.timesWrong++;
-            this.$store.commit("EDIT_CARD", this.card);
+            
         }
+        this.$store.commit("EDIT_CARD", this.card);
         this.isFront = true;
         this.getNextCard();
     }
