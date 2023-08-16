@@ -1,4 +1,5 @@
 import axios from "axios"
+import timeServ from "./TimeService.js"
 
 
 export default {
@@ -36,12 +37,34 @@ export default {
     },
 
     log(wasCorrect, card) {
-
+       
         if (wasCorrect) {
             return axios.put(`/card/correct`, card);
         } else {
             return axios.put(`/card/incorrect`, card);
         }
-    }
+
+    },
+
+    //local methods
+    getSortedActiveCards(cards) {
+        return cards
+            .filter(element => element.bin < 11 && element.timesWrong < 10)
+            .sort((a,b) => {
+             if (
+                (
+                new Date(a.expiryTime) - new Date(timeServ.nowUTC().toISOString()) > 0 || 
+                new Date(b.expiryTime) - new Date(timeServ.nowUTC().toISOString()) > 0
+                ) &&
+                ( a != b )
+            ) {
+                return new Date (a.expiryTime) - new Date(b.expiryTime);
+            } else {
+                return b.bin - a.bin;
+            }
+            });
+    },
+
+
 
 }

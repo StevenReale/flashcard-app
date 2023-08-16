@@ -102,29 +102,42 @@ export default {
     return {
       cards: [],
       inactiveCards: [],
+      login: false
     };
   },
   created() {
-
+   
     this.populatePage();
 
   },
   methods: {
     editCard(card) {
-      this.$router.push( {name: 'Edit', params: {cardId: card.cardId}})
+      this.$router.push( {name: 'Edit', params: {card: card}})
     },
     deleteCard(card) {
-      this.$router.push( {name: 'Delete', params: {cardId: card.cardId}})
+      this.$router.push( {name: 'Delete', params: {card: card}})
     },
     populatePage() {
-          cardServ.getAllActiveCardsByUser().then((response) => {
-      this.cards = response.data;
-    });
-
-    cardServ.getAllInactiveCardsByUser().then((response) => {
-      this.inactiveCards = response.data;
-    });
+      
+      if(this.login) {
+        cardServ.getAllActiveCardsByUser().then((response) => {  
+          this.cards = response.data;
+          
+        });
+        cardServ.getAllInactiveCardsByUser().then((response) => {
+        this.inactiveCards = response.data;
+        
+        });
+      } else {
+      this.cards = cardServ.getSortedActiveCards(this.$store.state.cards); 
+      
+      this.inactiveCards = this.$store.state.cards
+        .filter(element => element.bin >= 11 || element.timesWrong >= 10);
+      
+      }
+      
     },
+
     formatTimestamp(timeStamp) {
       if (timeStamp == null) {
         return "N/A";
@@ -139,7 +152,6 @@ export default {
 
       const difference = new Date(date) - new Date(utcDate); // Calculate the difference in millisecond
 
-      console.log(difference);
       // Convert the difference to the desired units (e.g., seconds, minutes, hours, etc.)
       const seconds = Math.floor(difference / 1000);
       const minutes = Math.floor(seconds / 60);

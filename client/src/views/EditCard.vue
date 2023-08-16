@@ -41,23 +41,31 @@
 </template>
 
 <script>
-import cardServ from '../services/CardService';
+//import cardServ from '../services/CardService';
 
 export default {
     name: 'edit-card',
     data () {
         return {
-            card: {}
+            card: {},
+            login: false
         }
     },
     created() {
-        cardServ.getCardById(this.$route.params.cardId).then(response => {
-            this.card = response.data;
-        });
+        
+        this.card = this.$route.params.card;
+        
     },
     methods: {
         update() {
-            cardServ.updateCard(this.card).then(()=> this.goHome());
+            if (this.login) {
+            console.log("THIS SHOULD NOT HAPPEN");
+            //cardServ.updateCard(this.card).then(()=> this.goHome());
+            } else {
+                this.$store.commit("EDIT_CARD", this.card);
+                this.goHome();
+            }
+
         },
         goHome() {
             this.$router.push({name: 'Admin'});

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import cardServ from "../services/CardService";
+//import cardServ from "../services/CardService";
 import timeServ from "../services/TimeService";
 
 export default {
@@ -33,9 +33,16 @@ export default {
                 timesWrong: 0
             }
 
-            cardServ.addCard(card).then( () => {
-                this.returnToAdmin();
-            })
+            if (this.login) {
+            // cardServ.addCard(card).then( () => {
+            //     this.returnToAdmin();
+            // });
+            console.log("THIS SHOULD NOT HAPPEN!");
+          } else {
+            //mutate datastore
+            this.$store.commit("ADD_CARD", card);
+            this.returnToAdmin();
+          }
         },
         returnToAdmin() {
             this.$router.push('/');
@@ -44,7 +51,8 @@ export default {
     data() {
         return {
             question: "",
-            answer: ""
+            answer: "",
+            login: false
         }
     }
 
