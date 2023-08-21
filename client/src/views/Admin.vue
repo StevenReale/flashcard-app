@@ -3,7 +3,7 @@
 
     <h2 class="hide-mobile">Deck Management</h2>
 
-    <p id="login-prompt" v-if="!login">Feel free to explore the app's functionality with this dummy data. If you wish to create a persistent card deck, please login.</p>
+    <p id="login-prompt" v-if="!login">Feel free to explore the app's functionality with this dummy data. If you wish to create a persistent card deck, please <router-link :to="{name: 'login'}">login</router-link></p>
     
     <button id="create" @click.prevent="create">Create New Card</button>
     <flashcard-collection />

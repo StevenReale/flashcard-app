@@ -57,7 +57,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User getUserById(int userId) {
-        String sql = "SELECT user_id, username, password_hash, first, last, role FROM app_user WHERE user_id = ?";
+        String sql = "SELECT user_id, username, password_hash, role FROM app_user WHERE user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         if (results.next()) {
             return mapRowToUser(results);
@@ -70,7 +70,7 @@ public class JdbcUserDao implements UserDao {
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
         // Intentionally excluding password_hash - Not a good idea to allow mass selection of user password data (even if hashed).
-        String sql = "SELECT user_id, username, first, last, role FROM app_user ORDER BY username;";
+        String sql = "SELECT user_id, username, FROM app_user ORDER BY username;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -85,7 +85,7 @@ public class JdbcUserDao implements UserDao {
     public User getByUsername(String username) {
         if (username == null) throw new IllegalArgumentException("Username cannot be null");
 
-        String sql = "SELECT user_id, username, password_hash, first, last, role FROM app_user WHERE username = ?";
+        String sql = "SELECT user_id, username, password_hash, role FROM app_user WHERE username = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
         if (results.next()) {
             return mapRowToUser(results);
@@ -96,11 +96,10 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User create(String username, String password, String role) {
-        String insertUserSql = "INSERT INTO app_user (username,password_hash,role) VALUES (?,?,?) RETURNING user_id";
+        String insertUserSql = "INSERT INTO app_user (username,password_hash, role) VALUES (?,?, ?) RETURNING user_id";
         String password_hash = new BCryptPasswordEncoder().encode(password);
-        String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
-        int userId = jdbcTemplate.queryForObject(insertUserSql, Integer.class, username, password_hash, ssRole);
+        int userId = jdbcTemplate.queryForObject(insertUserSql, Integer.class, username, password_hash, role);
         return getUserById(userId);
     }
 
@@ -118,6 +117,7 @@ public class JdbcUserDao implements UserDao {
         User user = new User();
         user.setUserId(rs.getInt("user_id"));
         user.setUsername(rs.getString("username"));
+        user.setAuthorities(rs.getString("role"));
         // Password column is not always included
         if (hasColumnName(rs, "password_hash")) {
             user.setPasswordHash(rs.getString("password_hash"));

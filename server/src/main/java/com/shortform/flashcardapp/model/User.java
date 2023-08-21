@@ -20,7 +20,7 @@ public class User {
     private Set<Authority> authorities = new HashSet<>();
 
     @JsonIgnore
-    private String password;
+    private String passwordHash;
 
     /*
      * The activated property is not currently used by this application. It exists because it
@@ -38,10 +38,10 @@ public class User {
         this.activated = true;
     }
 
-    public User(int id, String username, String password, String first, String last, String authorities) {
+    public User(int id, String username, String passwordHash, String authorities) {
         this.id = id;
         this.username = username;
-        this.password = password;
+        this.passwordHash = passwordHash;
         if(authorities != null) this.setAuthorities(authorities);
         this.activated = true;
 
@@ -64,11 +64,11 @@ public class User {
     }
 
     public String getPasswordHash() {
-        return password;
+        return passwordHash;
     }
 
     public void setPasswordHash(String password) {
-        this.password = password;
+        this.passwordHash = password;
     }
 
     public boolean isActivated() {
@@ -110,13 +110,13 @@ public class User {
         return id == user.id &&
                 activated == user.activated &&
                 Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password) &&
+                Objects.equals(passwordHash, user.passwordHash) &&
                 Objects.equals(authorities, user.authorities);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, activated, authorities);
+        return Objects.hash(id, username, passwordHash, activated, authorities);
     }
 
     @Override

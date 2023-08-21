@@ -5,6 +5,9 @@ import AddCard from '../views/AddCard.vue'
 import Study from '../views/Study.vue'
 import EditCard from '../views/EditCard.vue'
 import DeleteCard from '../views/DeleteCard.vue'
+import LoginView from '../views/LoginView.vue'
+import LogoutView from '../views/LogoutView.vue'
+import RegisterView from '../views/RegisterView.vue'
 
 Vue.use(VueRouter)
 
@@ -37,6 +40,24 @@ const routes = [
     path: '/delete/:cardId',
     name: 'Delete',
     component: DeleteCard
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: LoginView,
+
+  },
+  {
+    path: "/logout",
+    name: "logout",
+    component: LogoutView,
+
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: RegisterView,
+
   }
 
 ]
