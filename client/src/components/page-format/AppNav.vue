@@ -1,9 +1,15 @@
 <template>
       <nav>
       <ul id="nav-ul">
+        <li>
       <router-link class="nav-link" to="/">Deck Management</router-link> |
       <router-link class="nav-link" :to="{name: 'Study'}">Study Mode</router-link>
-      </ul>
+    </li>
+    <li>
+          <router-link class="nav-link" v-bind:to="{ name: 'logout' }" v-if="$store.state.token">Logout</router-link>
+          <router-link class="nav-link" v-bind:to="{ name: 'login' }" v-else>Login</router-link>
+        </li>
+    </ul>
     </nav>
 </template>
 
@@ -33,6 +39,11 @@ a{
 }
 
 #nav-ul {
-  padding-left: 10px;
+  display: flex;
+  list-style: none;
+  padding: 0 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%
 }
 </style>

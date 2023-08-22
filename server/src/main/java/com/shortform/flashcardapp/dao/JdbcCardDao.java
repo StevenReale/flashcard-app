@@ -40,7 +40,7 @@ public class JdbcCardDao implements CardDao {
                 "FROM card " +
                 "WHERE user_id = ? " +
                 "   AND bin < 11 " +
-                "   AND times_wrong < 10" +
+                "   AND times_wrong < 10 " +
                 "ORDER BY expiry_timestamp_ms_epoch;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
         while(result.next()) {

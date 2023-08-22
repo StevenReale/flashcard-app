@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import cardServ from '../services/CardService';
 
 export default {
     name: 'delete-card',
@@ -51,13 +50,17 @@ export default {
         }
     },
     created() {
-        cardServ.getCardById(this.$route.params.cardId).then(response => {
-            this.card = response.data;
-        });
+        this.card = this.$route.params.card;
     },
     methods: {
         deleteCard() {
-            cardServ.deleteCard(this.card).then(()=> this.goHome());
+            if(this.isLoggedIn) {
+            //cardServ.deleteCard(this.card).then(()=> this.goHome());
+            console.log("LOGGED IN");
+            } else {
+                this.$store.commit('DELETE_CARD', this.card.cardId);
+                this.goHome();
+            }
         },
 
         cancel() {
@@ -67,7 +70,12 @@ export default {
         goHome() {
             this.$router.push({name: 'Admin'})
         }
+    },
+    computed: {
+    isLoggedIn() {
+      return this.$store.state.token.length > 0;
     }
+  }
 }
 </script>
 

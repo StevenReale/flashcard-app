@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import cardServ from '../services/CardService';
+//import cardServ from '../services/CardService';
 
 export default {
     name: 'edit-card',
@@ -51,13 +51,20 @@ export default {
         }
     },
     created() {
-        cardServ.getCardById(this.$route.params.cardId).then(response => {
-            this.card = response.data;
-        });
+        
+        this.card = this.$route.params.card;
+        
     },
     methods: {
         update() {
-            cardServ.updateCard(this.card).then(()=> this.goHome());
+            if (this.isLoggedIn) {
+            console.log("LOGGED IN");
+            //cardServ.updateCard(this.card).then(()=> this.goHome());
+            } else {
+                this.$store.commit("EDIT_CARD", this.card);
+                this.goHome();
+            }
+
         },
         goHome() {
             this.$router.push({name: 'Admin'});
@@ -65,7 +72,12 @@ export default {
         cancel() {
             this.goHome();
         }
+    },
+    computed: {
+    isLoggedIn() {
+      return this.$store.state.token.length > 0;
     }
+  }
 }
 </script>
 
