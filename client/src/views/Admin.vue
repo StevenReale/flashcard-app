@@ -3,7 +3,7 @@
 
     <h2 class="hide-mobile">Deck Management</h2>
 
-    <p id="login-prompt" v-if="!login">Feel free to explore the app's functionality with this dummy data. If you wish to create a persistent card deck, please <router-link :to="{name: 'login'}">login</router-link></p>
+    <p id="login-prompt" v-if="!isLoggedIn">Feel free to explore the app's functionality with this dummy data. If you wish to create a persistent card deck, please <router-link :to="{name: 'login'}">login</router-link> or <router-link :to="{name: 'register'}">register</router-link>.</p>
     
     <button id="create" @click.prevent="create">Create New Card</button>
     <flashcard-collection />
@@ -21,11 +21,11 @@ export default {
         this.$router.push('/create');
       }
     },
-    data() {
-      return {
-        login: false
-      }
+    computed: {
+    isLoggedIn() {
+      return this.$store.state.token.length > 0;
     }
+  }
 };
 </script>
 

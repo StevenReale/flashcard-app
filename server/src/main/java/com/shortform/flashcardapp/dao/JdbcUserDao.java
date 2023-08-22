@@ -86,7 +86,7 @@ public class JdbcUserDao implements UserDao {
         if (username == null) throw new IllegalArgumentException("Username cannot be null");
 
         String sql = "SELECT user_id, username, password_hash, role FROM app_user WHERE username = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username.toLowerCase());
         if (results.next()) {
             return mapRowToUser(results);
         } else {
@@ -99,7 +99,7 @@ public class JdbcUserDao implements UserDao {
         String insertUserSql = "INSERT INTO app_user (username,password_hash, role) VALUES (?,?, ?) RETURNING user_id";
         String password_hash = new BCryptPasswordEncoder().encode(password);
 
-        int userId = jdbcTemplate.queryForObject(insertUserSql, Integer.class, username, password_hash, role);
+        int userId = jdbcTemplate.queryForObject(insertUserSql, Integer.class, username.toLowerCase(), password_hash, role);
         return getUserById(userId);
     }
 

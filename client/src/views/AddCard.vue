@@ -37,7 +37,7 @@ export default {
             // cardServ.addCard(card).then( () => {
             //     this.returnToAdmin();
             // });
-            console.log("THIS SHOULD NOT HAPPEN!");
+            console.log("LOGGED IN!");
           } else {
             //mutate datastore
             this.$store.commit("ADD_CARD", card);
@@ -51,10 +51,14 @@ export default {
     data() {
         return {
             question: "",
-            answer: "",
-            login: false
+            answer: ""            
         }
+    },
+    computed: {
+    isLoggedIn() {
+      return this.$store.state.token.length > 0;
     }
+  }
 
 }
 </script>

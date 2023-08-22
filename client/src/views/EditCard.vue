@@ -47,8 +47,7 @@ export default {
     name: 'edit-card',
     data () {
         return {
-            card: {},
-            login: false
+            card: {}
         }
     },
     created() {
@@ -58,8 +57,8 @@ export default {
     },
     methods: {
         update() {
-            if (this.login) {
-            console.log("THIS SHOULD NOT HAPPEN");
+            if (this.isLoggedIn) {
+            console.log("LOGGED IN");
             //cardServ.updateCard(this.card).then(()=> this.goHome());
             } else {
                 this.$store.commit("EDIT_CARD", this.card);
@@ -73,7 +72,12 @@ export default {
         cancel() {
             this.goHome();
         }
+    },
+    computed: {
+    isLoggedIn() {
+      return this.$store.state.token.length > 0;
     }
+  }
 }
 </script>
 

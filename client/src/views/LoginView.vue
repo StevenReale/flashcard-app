@@ -64,12 +64,8 @@ export default {
           }
         });
     },
-  },
-  created() {
-    if (this.$store.state.message != "Logged Out") {
-      this.$store.commit("CHANGE_BANNER_MESSAGE", "");
-    }
-  },
+  }
+
 };
 </script>
 

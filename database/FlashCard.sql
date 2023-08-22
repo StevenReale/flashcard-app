@@ -15,7 +15,7 @@ CREATE TABLE card (
 	card_id serial NOT NULL,
 	user_id int,
 	bin int,
-	expiry_time bigint,
+	expiry_timestamp_ms_epoch bigint,
 	question varchar(500),
 	answer varchar(500),
 	times_wrong int,

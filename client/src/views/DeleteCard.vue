@@ -46,8 +46,7 @@ export default {
     name: 'delete-card',
     data () {
         return {
-            card: {},
-            login: false
+            card: {}
         }
     },
     created() {
@@ -55,9 +54,9 @@ export default {
     },
     methods: {
         deleteCard() {
-            if(this.login) {
+            if(this.isLoggedIn) {
             //cardServ.deleteCard(this.card).then(()=> this.goHome());
-            console.log("That should NOT have happened!");
+            console.log("LOGGED IN");
             } else {
                 this.$store.commit('DELETE_CARD', this.card.cardId);
                 this.goHome();
@@ -71,7 +70,12 @@ export default {
         goHome() {
             this.$router.push({name: 'Admin'})
         }
+    },
+    computed: {
+    isLoggedIn() {
+      return this.$store.state.token.length > 0;
     }
+  }
 }
 </script>
 

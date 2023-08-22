@@ -101,8 +101,7 @@ export default {
   data() {
     return {
       cards: [],
-      inactiveCards: [],
-      login: false
+      inactiveCards: []
     };
   },
   created() {
@@ -119,7 +118,7 @@ export default {
     },
     populatePage() {
       
-      if(this.login) {
+      if(this.isLoggedIn) {
         cardServ.getAllActiveCardsByUser().then((response) => {  
           this.cards = response.data;
           
@@ -182,6 +181,11 @@ export default {
       }
     },
   },
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.token.length > 0;
+    }
+  }
 };
 </script>
 

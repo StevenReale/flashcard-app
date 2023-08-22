@@ -37,14 +37,13 @@ export default {
       card: {},
       message: "",
       displayMessage: false,
-      isFront: true,
-      login: false
+      isFront: true
     };
   },
   methods: {
     log(wasCorrect) {
       this.card.expiryTime = new Date();
-      if (this.login) {
+      if (this.isLoggedIn) {
       cardServ.log(wasCorrect, this.card).then(() => {
         this.checkCardStatus();
       });
@@ -96,7 +95,7 @@ export default {
     }
     },
     getNextCard() {
-      if(this.login) {
+      if(this.isLoggedIn) {
         console.log("THIS SHOULD NOT HAPPEN");
         cardServ.getNextCard().then((response) => {
           this.card = response.data;
@@ -136,6 +135,11 @@ export default {
   created() {
     this.checkCardStatus();
   },
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.token.length > 0;
+    }
+  }
 };
 </script>
 

@@ -29,6 +29,7 @@ import javax.validation.Valid;
 @RestController
 @CrossOrigin
 @PreAuthorize("permitAll()")
+@RequestMapping( path = "/api/")
 public class AuthenticationController {
 
 

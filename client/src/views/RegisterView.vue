@@ -50,6 +50,7 @@ export default {
       user: {
         username: "",
         password: "",
+        role: "user"
       },
     };
   },
