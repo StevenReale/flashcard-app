@@ -1,7 +1,5 @@
 # Flashcard App
 
-Submitted for consideration for employment with Shortform
-
 ## Time Log
 
 | Task                                                                                                                        | Time in minutes 
