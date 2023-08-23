@@ -14,7 +14,7 @@
 </template>
 
 <script>
-//import cardServ from "../services/CardService";
+import cardServ from "../services/CardService";
 import timeServ from "../services/TimeService";
 
 export default {
@@ -25,7 +25,7 @@ export default {
             const utcDate = timeServ.nowUTC().toISOString();
             console.log(utcDate);
             const card = {
-                userId: 1,
+                userId: this.$store.state.user.userId,
                 expiryTime:utcDate,
                 question: this.question,
                 answer: this.answer,
@@ -33,10 +33,10 @@ export default {
                 timesWrong: 0
             }
 
-            if (this.login) {
-            // cardServ.addCard(card).then( () => {
-            //     this.returnToAdmin();
-            // });
+            if (this.isLoggedIn) {
+            cardServ.addCard(card).then( () => {
+                this.returnToAdmin();
+            });
             console.log("LOGGED IN!");
           } else {
             //mutate datastore

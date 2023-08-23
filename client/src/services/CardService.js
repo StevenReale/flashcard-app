@@ -20,20 +20,20 @@ export default {
         return axios.get(`card/${cardId}`);
     },
 
-    getAllActiveCardsByUser() {
-        return axios.get('/card/active/1');
+    getAllActiveCardsByUser(user) {
+        return axios.get(`/card/active/${user.userId}`);
     },
 
-    getAllInactiveCardsByUser() {
-        return axios.get('/card/inactive/1');
+    getAllInactiveCardsByUser(user) {
+        return axios.get(`/card/inactive/${user.userId}`);
     },
 
-    getNextCard() {
-        return axios.get('/card/next/1');
+    getNextCard(user) {
+        return axios.get(`/card/next/${user.userId}`);
     },
 
-    checkCardStatus() {
-        return axios.get('/card/next/1/checkStatus');
+    checkCardStatus(user) {
+        return axios.get(`/card/next/${user.userId}/checkStatus`);
     },
 
     log(wasCorrect, card) {

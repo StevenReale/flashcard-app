@@ -21,7 +21,7 @@ export default new Vuex.Store({
           "userId": 1,
           "bin": 4,
           "expiryTime": "2023-08-14T07:49:30.664Z",
-          "question": "THIS IS FROM DATASTOREIn C#, which attribute indicates that a particular class is used for unit testing?",
+          "question": "In C#, which attribute indicates that a particular class is used for unit testing?",
           "answer": "[TestClass]",
           "timesWrong": 0
       },

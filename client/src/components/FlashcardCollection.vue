@@ -119,11 +119,11 @@ export default {
     populatePage() {
       
       if(this.isLoggedIn) {
-        cardServ.getAllActiveCardsByUser().then((response) => {  
+        cardServ.getAllActiveCardsByUser(this.$store.state.user).then((response) => {  
           this.cards = response.data;
           
         });
-        cardServ.getAllInactiveCardsByUser().then((response) => {
+        cardServ.getAllInactiveCardsByUser(this.$store.state.user).then((response) => {
         this.inactiveCards = response.data;
         
         });

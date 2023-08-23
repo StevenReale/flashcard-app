@@ -42,7 +42,12 @@
 
 <script>
 
+import cardServ from '../services/CardService';
+
 export default {
+
+
+
     name: 'delete-card',
     data () {
         return {
@@ -55,7 +60,7 @@ export default {
     methods: {
         deleteCard() {
             if(this.isLoggedIn) {
-            //cardServ.deleteCard(this.card).then(()=> this.goHome());
+            cardServ.deleteCard(this.card).then(()=> this.goHome());
             console.log("LOGGED IN");
             } else {
                 this.$store.commit('DELETE_CARD', this.card.cardId);

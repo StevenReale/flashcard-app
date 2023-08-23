@@ -41,7 +41,7 @@
 </template>
 
 <script>
-//import cardServ from '../services/CardService';
+import cardServ from '../services/CardService';
 
 export default {
     name: 'edit-card',
@@ -58,8 +58,8 @@ export default {
     methods: {
         update() {
             if (this.isLoggedIn) {
-            console.log("LOGGED IN");
-            //cardServ.updateCard(this.card).then(()=> this.goHome());
+            
+            cardServ.updateCard(this.card).then(()=> this.goHome());
             } else {
                 this.$store.commit("EDIT_CARD", this.card);
                 this.goHome();
