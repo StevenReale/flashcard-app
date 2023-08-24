@@ -7,8 +7,7 @@
           <tr>
             <th></th>
             <th></th>
-            <th class="hide-mobile">Card Id</th>
-            <th class="hide-mobile">Bin</th>
+            <th class="bin-column hide-mobile">Bin</th>
             <th>Times incorrect</th>
             <th>Question</th>
             <th class="hide-mobile">Answer</th>
@@ -33,7 +32,6 @@
                 title="Delete card"
               ></font-awesome-icon>
             </td>
-            <td class="hide-mobile" id="card-id">{{ card.cardId }}</td>
             <td class="hide-mobile" id="bin">{{ card.bin }}</td>
             <td id="incorrect">{{ card.timesWrong }}</td>
             <td id="question">{{ card.question }}</td>
@@ -51,8 +49,7 @@
           <tr>
             <th></th>
             <th></th>
-            <th class="hide-mobile">Card Id</th>
-            <th class="hide-mobile" >Bin</th>
+            <th class="bin-column hide-mobile" >Bin</th>
             <th>Times incorrect</th>
             <th>Question</th>
             <th class="hide-mobile">Answer</th>
@@ -76,7 +73,6 @@
                 title="Edit card"
               ></font-awesome-icon>
             </td>
-            <td class="hide-mobile" id="card-id">{{ card.cardId }}</td>
             <td class="hide-mobile" id="bin">{{ card.bin }}</td>
             <td id="incorrect">{{ card.timesWrong }}</td>
             <td id="question">{{ card.question }}</td>
@@ -206,6 +202,10 @@ thead {
 
 tbody td {
   padding-top: 0.5em;
+}
+
+.bin-column{
+  padding-left: 10px;
 }
 
 #card-id,

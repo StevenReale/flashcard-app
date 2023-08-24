@@ -1,20 +1,31 @@
 package com.shortform.flashcardapp.controller;
 
+import com.shortform.flashcardapp.dao.JdbcUserDao;
+import com.shortform.flashcardapp.dao.UserDao;
+import com.shortform.flashcardapp.exception.AuthenticationException;
 import com.shortform.flashcardapp.model.Card;
 import com.shortform.flashcardapp.model.Message;
+import com.shortform.flashcardapp.model.User;
 import com.shortform.flashcardapp.service.CardService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
+@PreAuthorize("isAuthenticated()")
 @CrossOrigin
 @RequestMapping( path = "/api/card")
 public class CardController {
 
     private CardService cardService;
+    private UserDao userDao;
 
-    public CardController(CardService cardService) {this.cardService = cardService;}
+    public CardController(CardService cardService, UserDao userDao) {
+        this.cardService = cardService;
+        this.userDao = userDao;
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public Card createCard(@RequestBody Card card) {
@@ -37,12 +48,21 @@ public class CardController {
     }
 
     @RequestMapping(path = "/active/{userId}", method = RequestMethod.GET)
-    public List<Card> getAllActiveCardsByUserId(@PathVariable int userId) {
+    public List<Card> getAllActiveCardsByUserId(@PathVariable int userId, Principal principal) throws AuthenticationException {
+        User user = getUser(principal);
+        if (user.getUserId()!=userId){
+            throw new AuthenticationException("Invalid user");
+        }
+
         return cardService.getAllActiveCardsByUserId(userId);
     }
 
     @RequestMapping(path = "/inactive/{userId}", method = RequestMethod.GET)
-    public List<Card> getAllInactiveCardsByUserId(@PathVariable int userId) {
+    public List<Card> getAllInactiveCardsByUserId(@PathVariable int userId, Principal principal) throws AuthenticationException {
+        User user = getUser(principal);
+        if (user.getUserId()!=userId){
+            throw new AuthenticationException("Invalid user");
+        }
         return cardService.getAllInactiveCardsByUserId(userId);
     }
 
@@ -66,5 +86,8 @@ public class CardController {
         return cardService.logIncorrectCard(card);
     }
 
+    private User getUser(Principal principal) {
 
+        return userDao.getByUsername(principal.getName());
+    }
 }
