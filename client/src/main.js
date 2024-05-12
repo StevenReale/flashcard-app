@@ -19,7 +19,7 @@ library.add(faTrashCan);
 /* add font awesome icon component */
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
-axios.defaults.baseURL = process.env.VUE_APP_REMOTE_API;
+axios.defaults.baseURL = "http://localhost:9000/api" //process.env.VUE_APP_REMOTE_API;
 
 new Vue({
   store,

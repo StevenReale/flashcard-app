@@ -68,6 +68,7 @@ public class CardController {
 
     @RequestMapping(path = "next/{userId}/checkStatus", method = RequestMethod.GET)
     public Message getStatusOfDeck(@PathVariable int userId){
+
         return cardService.getStatusMessage(userId);
     }
 
